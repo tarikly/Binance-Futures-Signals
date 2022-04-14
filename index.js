@@ -18,7 +18,7 @@ const binance = new Binance().options({
 
 // Leverage and percent
 const leverage = parseInt(process.env.LEVERAGE)
-const percent = parseFloat(process.env.PERCENT)
+const percent = parseFloat(process.env.PERCENT_SIZE_AMOUNT)
 
 const version = 'v1.0';
 let client;

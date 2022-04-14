@@ -24,6 +24,8 @@ npm i
  - BINANCE_FUTURES_CHANNEL="1617612647" // default 1617612647
  - BINANCE_API_KEY="" // API KEY Binance
  - BINANCE_SECRET_KEY="" // SECRET KEY Binance
+ - LEVERAGE="30" // Binance leverage
+ - PERCENT_SIZE_AMOUNT="0.05" // Account balance percentage
  - STRING_SESSION="" // String that will be displayed in the terminal. Copy and paste here. Next time the bot starts it will not ask for the phone number and code
 
 
