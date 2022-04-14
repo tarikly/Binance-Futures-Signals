@@ -22,9 +22,10 @@ npm i
  - TELEGRAM_API_ID="" // ID Telegram of https://my.telegram.org
  - TELEGRAM_API_HASH="" // Hash Telegram of https://my.telegram.org
  - BINANCE_FUTURES_CHANNEL="1617612647" // default 1617612647
- - BINANCE_API_KEY=""
- - BINANCE_SECRET_KEY=""
- - STRING_SESSION=""
+ - BINANCE_API_KEY="" // API KEY Binance
+ - BINANCE_SECRET_KEY="" // SECRET KEY Binance
+ - STRING_SESSION="" // String that will be displayed in the terminal. Copy and paste here. Next time the bot starts it will not ask for the phone number and code
+
 
 To start bot run this command
 ```
