@@ -45,7 +45,7 @@ When bot is running it it will ask for your telephone number to log in to Telegr
 If you can code and want to make this project better please feel free to contribute.
 
 ## Disclaimer
-Use at your own risk. Investing in cryptocurrency is risky. This is not financial advice.
+⚠️ Use at own risk ⚠️. Investing in cryptocurrency is risky. This is not financial advice.
 
 If you have an issue please don't post screenshots with personal information like seed phrase, telephone number, Telegram code, Telegram two factor password, or Telegram string session. Please keep that information private!
 
