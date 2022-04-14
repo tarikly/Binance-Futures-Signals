@@ -8,6 +8,15 @@ Binance Futures Signals bot that buys when you recieve Telegram notification fro
 #### Then install git https://git-scm.com/downloads, or you can just download zip file if you don't want to clone repository.
 #### Then go to https://my.telegram.org sign in, click Api developement tools and create an app to get app apiID and app apiHash.
 
+## After installation, you'll need to obtain an API ID and hash:
+
+- Login into your telegram account
+- Then click "API development tools" and fill your application details (only app title and short name required)
+- Finally, click "Create application"
+
+> Never share any API/authorization details, that will compromise your
+> application and account.
+
 Then Use the following commands either in VScode terminal or command prompt 
 ```
 git clone https://github.com/lagoanova/Binance-Futures-Signals.git
