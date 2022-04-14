@@ -16,6 +16,10 @@ const binance = new Binance().options({
   hedgeMode: true
 })
 
+// Leverage and percent
+const leverage = parseInt(process.env.LEVERAGE)
+const percent = parseFloat(process.env.PERCENT)
+
 const version = 'v1.0';
 let client;
 
@@ -90,7 +94,7 @@ async function openOrder(symbol, position) {
 
   let balanceFutures = await binance.futuresBalance();
 
-  await binance.futuresLeverage(symbol, 30)
+  await binance.futuresLeverage(symbol, leverage)
 
   await binance.futuresMarginType(symbol, 'ISOLATED');
 
@@ -106,7 +110,7 @@ async function openOrder(symbol, position) {
   }
 
   if (position === 'LONG') {
-    let qty = parseFloat(Math.round((balanceUSDT * 0.05 * 30) / markPrice)).toFixed(precisionQty)
+    let qty = parseFloat(Math.round((balanceUSDT * percent * leverage) / markPrice)).toFixed(precisionQty)
     let priceSell = parseFloat(markPrice * 1.10).toFixed(2)
 
     // sell
@@ -118,7 +122,7 @@ async function openOrder(symbol, position) {
 
     return buySymbol
   } else {
-    let qty = parseFloat(Math.round((balanceUSDT * 0.05 * 30) / markPrice)).toFixed(precisionQty)
+    let qty = parseFloat(Math.round((balanceUSDT * percent * leverage) / markPrice)).toFixed(precisionQty)
     let priceSell = parseFloat(markPrice * 0.90).toFixed(2)
 
     let buySymbol = await binance.futuresMarketSell(symbol, qty)
