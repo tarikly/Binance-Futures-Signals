@@ -17,7 +17,8 @@ Binance Futures Signals bot that buys when you recieve Telegram notification fro
 > Never share any API/authorization details, that will compromise your
 > application and account.
 
-Then Use the following commands either in VScode terminal or command prompt 
+
+## Then Use the following commands either in VScode terminal or command prompt 
 ```
 git clone https://github.com/lagoanova/Binance-Futures-Signals.git
 ```
