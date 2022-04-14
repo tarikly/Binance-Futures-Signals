@@ -18,7 +18,7 @@ cd Binance-Futures-Signals
 ```
 npm i
 ```
-#### Then edit the .env.example file with and rename it to .env:
+#### Then edit the .env.example file and rename it to .env:
  - TELEGRAM_API_ID="" // ID Telegram of https://my.telegram.org
  - TELEGRAM_API_HASH="" // Hash Telegram of https://my.telegram.org
  - BINANCE_FUTURES_CHANNEL="1617612647" // default 1617612647
