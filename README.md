@@ -18,8 +18,13 @@ cd Binance-Futures-Signals
 ```
 npm i
 ```
-#### Then edit .env.exame file with:
-
+#### Then edit the .env.example file with and rename it to .env:
+ - TELEGRAM_API_ID="" // ID Telegram of https://my.telegram.org
+ - TELEGRAM_API_HASH="" // Hash Telegram of https://my.telegram.org
+ - BINANCE_FUTURES_CHANNEL="1617612647" // default 1617612647
+ - BINANCE_API_KEY=""
+ - BINANCE_SECRET_KEY=""
+ - STRING_SESSION=""
 
 To start bot run this command
 ```
@@ -34,6 +39,7 @@ When bot is running it it will ask for your telephone number to log in to Telegr
 
 ## Contribute
 If you can code and want to make this project better please feel free to contribute.
+
 ## Disclaimer
 Use at your own risk. Investing in cryptocurrency is risky. This is not financial advice.
 
