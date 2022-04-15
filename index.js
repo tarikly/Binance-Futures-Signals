@@ -67,7 +67,7 @@ function onNewMessageBinanceFutures(message) {
         }
       })
 
-      openOrder(coin, position).then(async ({ buySymbol }) => {
+      openOrder(coin, position).then(async buySymbol => {
         console.log(`
 *Symbol*: ${buySymbol.symbol}
 *Qty*: ${buySymbol.origQty}
