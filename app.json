@@ -47,7 +47,7 @@
     "STRING_SESSION": {
       "description": "Generate the string at https://t.me/genStr_robot",
       "required": true,
-      "value": "false"
+      "value": ""
     }
   }
 }
