@@ -7,6 +7,12 @@ Binance Futures Signals from https://t.me/sinaisfortesfutures
 # Deploy to Heroku
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/lagoanova/Binance-Futures-Signals)
 
+# String Session Telegram Bot
+If using on Heroku or DigitalOcean, generate the session string using a telegram bot, such as https://t.me/genStr_robot or another one of your choice
+
+Another alternative is https://www.youtube.com/watch?v=nIgFYfxuIkg
+
+
 ## Getting Started
 Binance Futures Signals bot that buys when you recieve Telegram notification from this channel https://t.me/sinaisfortesfutures.
 
