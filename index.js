@@ -51,8 +51,7 @@ function onNewMessageBinanceFutures(message) {
   const keys = /LONG\/BUY|SHORT\/SELL/
 
   if (message.peerId.channelId == binanceFuturesChannel) {
-    const message = message.message.toUpperCase()
-    const arrayFutures = message.toUpperCase().trim().split(/\n/g)
+    const arrayFutures = message.message.toUpperCase().trim().split(/\n/g)
 
     const itemSearch = item => item.substring(item.indexOf(':') + 1).trim()
 
