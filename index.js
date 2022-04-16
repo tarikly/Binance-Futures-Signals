@@ -68,24 +68,25 @@ function onNewMessageBinanceFutures(message) {
       if (item.includes('LONG')) position = 'LONG'
       if (item.includes('SHORT')) position = 'SHORT'
     	
-      if (/USDT/.test(item)) { 
+      if (/\/USDT/.test(item)) { 
         coin = itemSearch(item).replace(/[^a-z]/gi,'')
       }
     	
-      if (/ENTRADA/.test(item)) {
+      if (/ENTRADA\:/.test(item)) {
         entryPoint = itemSearch(item)
       }
     	
-      if (/ALAVANCAGEM/.test(item)) {
+      if (/ALAVANCAGEM\:/.test(item)) {
         leverage = itemSearch(item).replace(/[^0-9]/gi,'')
       }
     	
-      if (/STOP/.test(item)) {
+      if (/STOP LOSS\:/.test(item)) {
         stopLoss = itemSearch(item)
       }
           	
     })
   	
+    console.log(arrayFutures)
     console.log(position, coin, entryPoint, leverage, stopLoss)
 
     */
