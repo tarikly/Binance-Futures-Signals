@@ -1,0 +1,53 @@
+{
+  "name": "binance-futures-bots",
+  "description": "🏆 BINANCE FUTURES / Sinais Fortes",
+  "logo": "https://biscoint.io/images/biscoint-icon.svg",
+  "repository": "https://github.com/lagoanova/Binance-Futures-Signals",
+  "formation": {
+    "worker": {
+      "quantity": 1,
+      "size": "free"
+    }
+  },
+  "keywords": [
+    "node",
+    "bitcoin",
+    "trading",
+    "trader",
+    "bot",
+    "market",
+    "maker",
+    "binance",
+    "futures"
+  ],
+  "env": {
+    "TELEGRAM_API_ID": {
+      "description": "ID Telegram of https://my.telegram.org",
+      "required": true
+    },
+    "TELEGRAM_API_HASH": {
+      "description": "Hash Telegram of https://my.telegram.org",
+      "required": true
+    },
+    "BINANCE_FUTURES_CHANNEL": {
+      "description": "https://t.me/sinaisfortesfutures",
+      "required": true,
+      "value": "1617612647"
+    },
+    "BINANCE_API_KEY": {
+      "description": "API KEY BINANCE",
+      "required": true,
+      "value": ""
+    },
+    "BINANCE_SECRET_KEY": {
+      "description": "API SECRET BINANCE",
+      "required": true,
+      "value": ""
+    },
+    "STRING_SESSION": {
+      "description": "Generate the string at https://t.me/genStr_robot",
+      "required": true,
+      "value": "false"
+    }
+  }
+}
