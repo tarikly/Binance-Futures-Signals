@@ -1,0 +1,27 @@
+spec:
+  name: binance-futures-signals
+  services:
+  - environment_slug: node-js
+    git:
+      branch: main
+      repo_clone_url: https://github.com/lagoanova/Binance-Futures-Signals.git
+    envs:
+    - key: TELEGRAM_API_ID
+      scope: BUILD_TIME
+      value: "ID Telegram of https://my.telegram.org"
+    - key: TELEGRAM_API_HASH
+      scope: BUILD_TIME
+      value: "Hash Telegram of https://my.telegram.org"
+    - key: BINANCE_FUTURES_CHANNEL
+      scope: BUILD_TIME
+      value: "1617612647"
+    - key: BINANCE_API_KEY
+      scope: BUILD_TIME
+      value: "API KEY BINANCE"
+    - key: BINANCE_SECRET_KEY
+      scope: BUILD_TIME
+      value: "API SECRET BINANCE"
+    - key: STRING_SESSION
+      scope: BUILD_TIME
+      value: "Generate the string at https://t.me/StringSessionGen_Bot"
+    name: binance-futures-signals
