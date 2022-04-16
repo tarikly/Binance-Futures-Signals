@@ -51,6 +51,45 @@ function onNewMessageBinanceFutures(message) {
   const keys = /LONG\/BUY|SHORT\/SELL/
 
   if (message.peerId.channelId == binanceFuturesChannel) {
+
+    /* new code
+    const message = message.message.toUpperCase()
+    const arrayFutures = message.toUpperCase().trim().split(/\n/g)
+  	
+    const itemSearch = item => item.substring(item.indexOf(':') + 1).trim()
+  	
+    let position = null
+    let coin = null
+    let entryPoint = null
+    let leverage = null
+    let stopLoss = null
+  	
+    arrayFutures.forEach(async (item, index) => {
+      if (item.includes('LONG')) position = 'LONG'
+      if (item.includes('SHORT')) position = 'SHORT'
+    	
+      if (/USDT/.test(item)) { 
+        coin = itemSearch(item).replace(/[^a-z]/gi,'')
+      }
+    	
+      if (/ENTRADA/.test(item)) {
+        entryPoint = itemSearch(item)
+      }
+    	
+      if (/ALAVANCAGEM/.test(item)) {
+        leverage = itemSearch(item).replace(/[^0-9]/gi,'')
+      }
+    	
+      if (/STOP/.test(item)) {
+        stopLoss = itemSearch(item)
+      }
+          	
+    })
+  	
+    console.log(position, coin, entryPoint, leverage, stopLoss)
+
+    */
+
     console.log('--- NEW SIGNAL FOUND ---');
     let timeStamp = new Date().toLocaleString();
     console.log(timeStamp);
