@@ -51,73 +51,71 @@ function onNewMessageBinanceFutures(message) {
   const keys = /LONG\/BUY|SHORT\/SELL/
 
   if (message.peerId.channelId == binanceFuturesChannel) {
-
-    /* new code
     const message = message.message.toUpperCase()
     const arrayFutures = message.toUpperCase().trim().split(/\n/g)
-  	
+
     const itemSearch = item => item.substring(item.indexOf(':') + 1).trim()
-  	
+
     let position = null
     let coin = null
     let entryPoint = null
     let leverage = null
     let stopLoss = null
-  	
+
     arrayFutures.forEach(async (item, index) => {
       if (item.includes('LONG')) position = 'LONG'
       if (item.includes('SHORT')) position = 'SHORT'
-    	
-      if (/\/USDT/.test(item)) { 
-        coin = itemSearch(item).replace(/[^a-z]/gi,'')
+
+      if (/\/USDT/.test(item)) {
+        coin = itemSearch(item).replace(/[^a-z]/gi, '')
       }
-    	
+
       if (/ENTRADA\:/.test(item)) {
         entryPoint = itemSearch(item)
       }
-    	
+
       if (/ALAVANCAGEM\:/.test(item)) {
-        leverage = itemSearch(item).replace(/[^0-9]/gi,'')
+        leverage = itemSearch(item).replace(/[^0-9]/gi, '')
       }
-    	
+
       if (/STOP LOSS\:/.test(item)) {
         stopLoss = itemSearch(item)
       }
-          	
+
     })
-  	
+
     console.log(arrayFutures)
     console.log(position, coin, entryPoint, leverage, stopLoss)
 
-    */
-
-    console.log('--- NEW SIGNAL FOUND ---');
-    let timeStamp = new Date().toLocaleString();
-    console.log(timeStamp);
-    const msg = message.message.toUpperCase().replace(/\n/g, ' ').split(' ');
-    const position = /LONG/.test(msg) ? 'LONG' : 'SHORT'
-    const isSignal = keys.test(msg)
-
-    let coin = null
-
-    if (isSignal) {
-      msg.forEach(key => {
-        if (/USDT/.test(key)) {
-          coin = key.replace('#', '').replace('/', '').trim()
-        }
-      })
-
-      openOrder(coin, position).then(async buySymbol => {
-        console.log(`
+    openOrder(coin, position).then(async buySymbol => {
+      console.log(`
 *Symbol*: ${buySymbol.symbol}
 *Qty*: ${buySymbol.origQty}
 *positionSide*: ${buySymbol.positionSide}
 `)
-      }).catch(e => console.log(e))
-    }
-  } else {
-    console.log('Waiting for telegram notification to buy...', '\n');
+    }).catch(e => console.log(e))
   }
+
+  /*
+  console.log('--- NEW SIGNAL FOUND ---');
+  let timeStamp = new Date().toLocaleString();
+  console.log(timeStamp);
+  const msg = message.message.toUpperCase().replace(/\n/g, ' ').split(' ');
+  const position = /LONG/.test(msg) ? 'LONG' : 'SHORT'
+  const isSignal = keys.test(msg)
+
+  let coin = null
+
+  if (isSignal) {
+    msg.forEach(key => {
+      if (/USDT/.test(key)) {
+        coin = key.replace('#', '').replace('/', '').trim()
+      }
+    })
+} else {
+  console.log('Waiting for telegram notification to buy...', '\n');
+}
+*/
 }
 
 async function openOrder(symbol, position) {
