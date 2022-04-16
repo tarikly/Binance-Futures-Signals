@@ -38,7 +38,7 @@ npm i
  - BINANCE_SECRET_KEY="" // SECRET KEY Binance
  - LEVERAGE="30" // Binance leverage
  - PERCENT_SIZE_AMOUNT="0.05" // Account balance percentage
- - STRING_SESSION="" // String that will be displayed in the terminal. Copy and paste here. Next time the bot starts it will not ask for the phone number and code
+ - STRING_SESSION="" // String that will be displayed in the terminal. Copy and paste here. Next time the bot starts it will not ask for the phone number and code. Or Generate the string at https://t.me/genStr_robot
 
 
 To start bot run this command

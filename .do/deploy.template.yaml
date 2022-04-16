@@ -23,5 +23,5 @@ spec:
       value: "API SECRET BINANCE"
     - key: STRING_SESSION
       scope: RUN_AND_BUILD_TIME
-      value: "Generate the string at https://t.me/StringSessionGen_Bot"
+      value: "Generate the string at https://t.me/genStr_robot"
     name: binance-futures-signals
