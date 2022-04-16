@@ -1,6 +1,6 @@
 spec:
   name: binance-futures-signals
-  services:
+  workers:
   - environment_slug: node-js
     git:
       branch: main
