@@ -150,7 +150,7 @@ async function openOrder(symbol, position) {
     let qty = parseFloat(Math.round((balanceUSDT * percent * leverage) / markPrice)).toFixed(precisionQty)
     let priceSell = parseFloat(markPrice * 1.10).toFixed(2)
 
-    // sell
+    // buy
     let buySymbol = await binance.futuresMarketBuy(symbol, qty)
     //let takeProfit = await binance.futuresSell(symbol, qty, false, { type: 'TAKE_PROFIT_MARKET', workingType: 'MARK_PRICE', closePosition: true, stopPrice: precoVenda, positionSide: position, timeInForce: 'GTC' });
     //let stopMarket = await binance.futuresSell(symbol, qty, false, { type: 'STOP_MARKET', workingType: 'MARK_PRICE', closePosition: true, stopPrice: stopLoss, positionSide: position, timeInForce: 'GTC' });
