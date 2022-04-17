@@ -85,17 +85,18 @@ async function onNewMessageBinanceFutures(message) {
     console.log(arrayFutures)
     console.log(position, coin, entryPoint, leverage, stopLoss)
 
-    const execOrder = await openOrder(coin, position, entryPoint)
+    const execOrder = await openOrder(coin, position, entryPoint, stopLoss)
     console.log(`
 *Symbol*: ${execOrder.symbol}
 *entryPoint*: ${entryPoint}
+*stopLoss*: ${stopLoss}
 *Qty*: ${execOrder.origQty}
 *positionSide*: ${execOrder.positionSide}
 `)
   }
 }
 
-async function openOrder(symbol, position, entryPoint) {
+async function openOrder(symbol, position, entryPoint, stopLoss) {
   const futures = await binance.futuresExchangeInfo()
   const symbols = futures['symbols']
   let precisionQty
@@ -133,8 +134,10 @@ async function openOrder(symbol, position, entryPoint) {
       type: 'LIMIT', timeInForce: 'GTC', price: parseFloat(entryPoint)
     })
     //const buySymbol = await binance.futuresMarketBuy(symbol, qty)
-    //let takeProfit = await binance.futuresSell(symbol, qty, false, { type: 'TAKE_PROFIT_MARKET', workingType: 'MARK_PRICE', closePosition: true, stopPrice: precoVenda, positionSide: position, timeInForce: 'GTC' });
-    //let stopMarket = await binance.futuresSell(symbol, qty, false, { type: 'STOP_MARKET', workingType: 'MARK_PRICE', closePosition: true, stopPrice: stopLoss, positionSide: position, timeInForce: 'GTC' });
+    //const takeProfit = await binance.futuresSell(symbol, qty, false, { type: 'TAKE_PROFIT_MARKET', workingType: 'MARK_PRICE', closePosition: true, stopPrice: precoVenda, positionSide: position, timeInForce: 'GTC' });
+    const stopMarket = await binance.futuresSell(symbol, qty, false, {
+      type: 'STOP_MARKET', workingType: 'MARK_PRICE', closePosition: true, stopPrice: parseFloat(stopLoss), positionSide: position, timeInForce: 'GTC'
+    });
 
     //return { buySymbol, takeProfit, stopMarket }
     console.log(buySymbol)
@@ -149,8 +152,8 @@ async function openOrder(symbol, position, entryPoint) {
       type: 'LIMIT', timeInForce: 'GTC', price: parseFloat(entryPoint)
     })
     //const buySymbol = await binance.futuresMarketSell(symbol, qty)
-    //let takeProfit = await binance.futuresBuy(symbol, qty, false, { type: 'TAKE_PROFIT_MARKET', closePosition: true, stopPrice: precoVenda, positionSide: position, timeInForce: 'GTC' });
-    //let stopMarket = await binance.futuresBuy(symbol, qty, false, { type: 'STOP_MARKET', closePosition: true, stopPrice: stopLoss, positionSide: position, timeInForce: 'GTC' });
+    //const takeProfit = await binance.futuresBuy(symbol, qty, false, { type: 'TAKE_PROFIT_MARKET', closePosition: true, stopPrice: precoVenda, positionSide: position, timeInForce: 'GTC' });
+    //const stopMarket = await binance.futuresBuy(symbol, qty, false, { type: 'STOP_MARKET', closePosition: true, stopPrice: stopLoss, positionSide: position, timeInForce: 'GTC' });
 
     console.log(buySymbol)
     return buySymbol
