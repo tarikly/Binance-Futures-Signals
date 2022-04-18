@@ -18,6 +18,9 @@ Another alternative is https://www.youtube.com/watch?v=nIgFYfxuIkg
 ## Getting Started
 Binance Futures Signals bot that buys when you recieve Telegram notification from this channel https://t.me/sinaisfortesfutures.
 
+## Installation guide
+Link to manual https://docs.google.com/document/d/e/2PACX-1vSkiTmErxbz_zvLRFW1-hhC20HYkJHKu_CWsx8LYL0cQGD7Fwk-6r2d9oXAbYZmtN37xwIERgfQJDgm/pub
+
 #### First, if you don't have node.js installed go to https://nodejs.org and install the lastest LTS version.
 #### Then install git https://git-scm.com/downloads, or you can just download zip file if you don't want to clone repository.
 #### Then go to https://my.telegram.org sign in, click Api developement tools and create an app to get app apiID and app apiHash.
