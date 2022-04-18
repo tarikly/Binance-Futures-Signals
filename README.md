@@ -66,7 +66,7 @@ When bot is running it it will ask for your telephone number to log in to Telegr
 #### 🏆 BINANCE FUTURES / Sinais Fortes Brazil https://t.me/sinaisfortesfutures
 
 ## Note about Heroku
-Note: Person accounts receive a base of 550 free dynamic hours per month. In addition to these base hours, credit card verified accounts will receive an additional 450 hours to their free monthly dyno quota. This means that you can receive a total of 1000 free dynamic hours per month if you verify your account with a credit card.
+Note: Person accounts receive a base of 550 free dynamic hours per month. In addition to these base hours, credit card verified accounts will receive an additional 450 hours to their free monthly dyno quota. This means that you can receive a total of 1000 free dynamic hours per month if you verify your account with a credit card (video https://www.youtube.com/watch?v=KhOjVv2sXhs).
 
 As the bot will be on 24/7, consider adding the card (preferably virtual) to increase your free monthly base hours to 1000 hours. Source: https://devcenter.heroku.com/articles/free-dyno-hours
 
