@@ -24,4 +24,13 @@ spec:
     - key: STRING_SESSION
       scope: RUN_AND_BUILD_TIME
       value: "Generate the string at https://t.me/genStr_robot"
+    - key: LEVERAGE
+      scope: RUN_AND_BUILD_TIME
+      value: "10"
+    - key: PERCENT_SIZE_AMOUNT
+      scope: RUN_AND_BUILD_TIME
+      value: "0.05"
+    - key: VERSION
+      scope: RUN_AND_BUILD_TIME
+      value: "2"
     name: binance-futures-signals
