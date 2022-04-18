@@ -1,5 +1,7 @@
 # Binance-Futures-Signals
 Binance Futures Signals from https://t.me/sinaisfortesfutures
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/ghostnetrn)
+
 
 # Deploy to DigitalOcean
 [![Deploy to DO](https://mp-assets1.sfo2.digitaloceanspaces.com/deploy-to-do/do-btn-blue.svg)](https://cloud.digitalocean.com/apps/new?repo=https://github.com/lagoanova/Binance-Futures-Signals/tree/main&refcode=a076ff7a9a6a)
@@ -72,6 +74,18 @@ When bot is running it it will ask for your telephone number to log in to Telegr
 Note: Person accounts receive a base of 550 free dynamic hours per month. In addition to these base hours, credit card verified accounts will receive an additional 450 hours to their free monthly dyno quota. This means that you can receive a total of 1000 free dynamic hours per month if you verify your account with a credit card (video https://www.youtube.com/watch?v=KhOjVv2sXhs).
 
 As the bot will be on 24/7, consider adding the card (preferably virtual) to increase your free monthly base hours to 1000 hours. Source: https://devcenter.heroku.com/articles/free-dyno-hours
+
+## Donate
+If this bot helped you out feel free to donate.
+
+- BTC: bc1qmdnrffyvhhyhm05he9wm20zjv4nnqugf0kkgyx
+- BNB: bnb1zg5yfv3uplxq3vyafez7387yg52k4l9cwxfjjk
+- TETHER USD: TAvihdDuyY1QwLwJN7JK721MrhsrP8mtaA 
+- ETH: 0xab331dB5A06ECcb339c15b5432cf97BF14A7b704
+- TRX: TAvihdDuyY1QwLwJN7JK721MrhsrP8mtaA
+- ADA: addr1qxk8ht7zxjfqnhn9sguljtx4tyv5jacqwnqqu7gy7kw5cldv0whuydyjp80xtq3elykd2kgef9msqaxqpeusfavaf37ssy0tgz
+- XRP: rAKJqSjf3ffPqNgjiVA7gxysa8BZPegfG
+- XLM: GCF5RIUK5V3MSMXAMQOI56MALHIZDIQ4XUUWTWAVAGV62Y3UJDNZBI5B
 
 ## Contribute
 If you can code and want to make this project better please feel free to contribute.
