@@ -48,6 +48,21 @@
       "description": "Generate the string at https://t.me/genStr_robot",
       "required": true,
       "value": ""
+    },
+    "LEVERAGE": {
+      "description": "Leverage Binance. Default: 10",
+      "required": true,
+      "value": "10"
+    },
+    "PERCENT_SIZE_AMOUNT": {
+      "description": "Account balance percentage. Default: 0.05 (5% per order)",
+      "required": true,
+      "value": "0.05"
+    },
+    "VERSION": {
+      "description": "Version bot",
+      "required": true,
+      "value": "2"
     }
   }
 }
