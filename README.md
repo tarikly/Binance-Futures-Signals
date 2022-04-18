@@ -4,9 +4,7 @@ Binance Futures Signals from https://t.me/sinaisfortesfutures
 
 If you like my project please help me with a small donation
 
-[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/ghostnetrn)
-
-[!["Donate"](https://cdn.iconscout.com/icon/free/png-256/bitcoin-384-920569.png)](#donate)
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/ghostnetrn) or *[Donate](#donate)
 
 
 # Deploy to DigitalOcean
