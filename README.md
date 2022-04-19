@@ -62,7 +62,7 @@ npm i
  - TARGET_PROFIT="1" // Target Profit. Default: 1 (targets from 1 to 5)
  - STRING_SESSION="" // String that will be displayed in the terminal. Copy and paste here. Next time the bot starts it will not ask for the phone number and code. Or Generate the string at https://t.me/genStr_robot
 
- Example buy or sell signal
+ **Example buy or sell signal**
 
  🟩 Posição: Long
 Tipo: COMPRA 
@@ -109,5 +109,3 @@ If you can code and want to make this project better please feel free to contrib
 ⚠️ Use at own risk ⚠️. Investing in cryptocurrency is risky. This is not financial advice.
 
 If you have an issue please don't post screenshots with personal information like seed phrase, telephone number, Telegram code, Telegram two factor password, or Telegram string session. Please keep that information private!
-
-
