@@ -1,1 +1,2 @@
-worker: node ./index.js
+web: echo "🏆 BINANCE FUTURES / Sinais Fortes"
+worker: npm start
