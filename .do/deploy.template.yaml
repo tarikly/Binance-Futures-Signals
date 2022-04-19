@@ -30,6 +30,9 @@ spec:
     - key: PERCENT_SIZE_AMOUNT
       scope: RUN_AND_BUILD_TIME
       value: "0.05"
+    - key: TARGET_PROFIT
+      scope: RUN_AND_BUILD_TIME
+      value: "1"
     - key: VERSION
       scope: RUN_AND_BUILD_TIME
       value: "2"

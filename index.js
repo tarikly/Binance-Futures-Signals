@@ -21,7 +21,7 @@ const binance = new Binance().options({
 // Leverage and percent
 let leverage = parseInt(process.env.LEVERAGE)
 const percent = process.env.PERCENT_SIZE_AMOUNT
-
+const targetProfit = parseInt(process.env.TARGET_PROFIT)
 const version = process.env.VERSION;
 let client;
 
@@ -50,53 +50,71 @@ let client;
 
 
 async function onNewMessageBinanceFutures(message) {
-  if (message.peerId.channelId == binanceFuturesChannel) {
-    const arrayFutures = message.message.toUpperCase().trim().split(/\n/g)
+  const channelBinanceFutures = message.peerId.channelId == binanceFuturesChannel
+	const arrayFutures = message.message.toUpperCase().trim().split(/\n/g)
+	const hasTextEntryPoint = /PONTO DE ENTRADA\:/.test(arrayFutures)
 
-    const itemSearch = item => item.substring(item.indexOf(':') + 1).trim()
+  try {
+    if (channelBinanceFutures && hasTextEntryPoint) {
 
-    let position = null
-    let coin = null
-    let entryPoint = null
-    let stopLoss = null
+      const itemSearch = item => item.substring(item.indexOf(':') + 1).trim()
 
-    arrayFutures.forEach(async (item, index) => {
-      if (item.includes('LONG')) position = 'LONG'
-      if (item.includes('SHORT')) position = 'SHORT'
+      let position = null
+      let coin = null
+      let entryPoint = null
+      let stopLoss = null
+      let targets = []
+      let takeProfit = null
 
-      if (/\/USDT/.test(item)) {
-        coin = itemSearch(item).replace(/[^a-z]/gi, '')
-      }
+      arrayFutures.forEach(async (item, index) => {
+        if (item.includes('LONG')) position = 'LONG'
+        if (item.includes('SHORT')) position = 'SHORT'
 
-      if (/ENTRADA\:/.test(item)) {
-        entryPoint = itemSearch(item)
-      }
+        if (/\/USDT/.test(item)) {
+          coin = itemSearch(item).replace(/[^a-z]/gi, '')
+        }
 
-      if (/ALAVANCAGEM\:/.test(item)) {
-        leverage = itemSearch(item).replace(/[^0-9]/gi, '')
-      }
+        if (/ENTRADA\:/.test(item)) {
+          entryPoint = itemSearch(item)
+        }
 
-      if (/STOP LOSS\:/.test(item)) {
-        stopLoss = itemSearch(item)
-      }
+        if (/ALAVANCAGEM\:/.test(item)) {
+          leverage = itemSearch(item).replace(/[^0-9]/gi, '')
+        }
 
-    })
+        if (/STOP LOSS\:/.test(item)) {
+          stopLoss = itemSearch(item)
+        }
 
-    console.log(arrayFutures)
-    console.log(position, coin, entryPoint, leverage, stopLoss)
+        if (/ALVOS\:/.test(item)) {
+          targets = itemSearch(item).split(' - ')
+        }
 
-    const execOrder = await openOrder(coin, position, entryPoint, stopLoss)
-    console.log(`
+      })
+
+      typeof targets[targetProfit] === 'undefined' ? takeProfit = targets[0] : takeProfit = targets[targetProfit - 1]
+
+      console.log(arrayFutures)
+      console.log(position, coin, entryPoint, leverage, stopLoss, takeProfit)
+
+      const execOrder = await openOrder(coin, position, entryPoint, stopLoss, takeProfit)
+      console.log(`
 *Symbol*: ${execOrder.symbol}
 *entryPoint*: ${entryPoint}
+*targetProfit*: ${takeProfit}
 *stopLoss*: ${stopLoss}
 *Qty*: ${execOrder.origQty}
 *positionSide*: ${execOrder.positionSide}
 `)
+    } else {
+      console.log(`Waiting for signals from the Group ${binanceFuturesChannel}!`)
+    }
+  } catch (e) {
+    console.log(e)
   }
 }
 
-async function openOrder(symbol, position, entryPoint, stopLoss) {
+async function openOrder(symbol, position, entryPoint, stopLoss, takeProfit) {
   const futures = await binance.futuresExchangeInfo()
   const symbols = futures['symbols']
   let precisionQty
@@ -134,7 +152,10 @@ async function openOrder(symbol, position, entryPoint, stopLoss) {
       type: 'LIMIT', timeInForce: 'GTC', price: parseFloat(entryPoint)
     })
     //const buySymbol = await binance.futuresMarketBuy(symbol, qty)
-    //const takeProfit = await binance.futuresSell(symbol, qty, false, { type: 'TAKE_PROFIT_MARKET', workingType: 'MARK_PRICE', closePosition: true, stopPrice: precoVenda, positionSide: position, timeInForce: 'GTC' });
+    const targetProfit = await binance.futuresSell(symbol, qty, false, {
+      type: 'TAKE_PROFIT_MARKET', workingType: 'MARK_PRICE', closePosition: true, stopPrice: parseFloat(takeProfit), positionSide: position, timeInForce: 'GTC'
+    });
+
     const stopMarket = await binance.futuresSell(symbol, qty, false, {
       type: 'STOP_MARKET', workingType: 'MARK_PRICE', closePosition: true, stopPrice: parseFloat(stopLoss), positionSide: position, timeInForce: 'GTC'
     });
@@ -152,7 +173,10 @@ async function openOrder(symbol, position, entryPoint, stopLoss) {
       type: 'LIMIT', timeInForce: 'GTC', price: parseFloat(entryPoint)
     })
     //const buySymbol = await binance.futuresMarketSell(symbol, qty)
-    //const takeProfit = await binance.futuresBuy(symbol, qty, false, { type: 'TAKE_PROFIT_MARKET', closePosition: true, stopPrice: precoVenda, positionSide: position, timeInForce: 'GTC' });
+    const targetProfit = await binance.futuresBuy(symbol, qty, false, {
+      type: 'TAKE_PROFIT_MARKET', closePosition: true, stopPrice: parseFloat(takeProfit), positionSide: position, timeInForce: 'GTC'
+    });
+
     const stopMarket = await binance.futuresBuy(symbol, qty, false, {
       type: 'STOP_MARKET', closePosition: true, stopPrice: parseFloat(stopLoss), positionSide: position, timeInForce: 'GTC'
     });

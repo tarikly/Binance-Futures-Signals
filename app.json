@@ -59,6 +59,11 @@
       "required": true,
       "value": "0.05"
     },
+    "TARGET_PROFIT": {
+      "description": "Target Profit. Default: 1 (targets from 1 to 5)",
+      "required": true,
+      "value": "1"
+    },
     "VERSION": {
       "description": "Version bot",
       "required": true,
