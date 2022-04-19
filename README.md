@@ -63,13 +63,7 @@ npm i
  - STRING_SESSION="" // String that will be displayed in the terminal. Copy and paste here. Next time the bot starts it will not ask for the phone number and code. Or Generate the string at https://t.me/genStr_robot
 
  **Example buy or sell signal**
-🟩 Posição: Long
-Tipo: COMPRA 
-Moeda: #RUNE/USDT ️
-🎯Ponto de Entrada: 8.130
-💸Alvos: 8.160 - 8.195 - 8.225 - 8.290 - 8.455
-📈Alavancagem: 10x
-📍Stop Loss: 7.640
+![image](https://user-images.githubusercontent.com/54438080/164044091-8cb1ab37-7fe5-4d71-8976-4de3c8ec8d7a.png)
 
 
 To start bot run this command
