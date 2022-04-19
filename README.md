@@ -25,7 +25,7 @@ Another alternative is https://www.youtube.com/watch?v=nIgFYfxuIkg
 Binance Futures Signals bot that buys when you recieve Telegram notification from this channel https://t.me/sinaisfortesfutures.
 
 ## Installation guide
-Link to manual https://docs.google.com/document/d/e/2PACX-1vSkiTmErxbz_zvLRFW1-hhC20HYkJHKu_CWsx8LYL0cQGD7Fwk-6r2d9oXAbYZmtN37xwIERgfQJDgm/pub
+**Link to manual** https://docs.google.com/document/d/e/2PACX-1vSkiTmErxbz_zvLRFW1-hhC20HYkJHKu_CWsx8LYL0cQGD7Fwk-6r2d9oXAbYZmtN37xwIERgfQJDgm/pub
 
 #### First, if you don't have node.js installed go to https://nodejs.org and install the lastest LTS version.
 #### Then install git https://git-scm.com/downloads, or you can just download zip file if you don't want to clone repository.
@@ -63,7 +63,7 @@ npm i
  - STRING_SESSION="" // String that will be displayed in the terminal. Copy and paste here. Next time the bot starts it will not ask for the phone number and code. Or Generate the string at https://t.me/genStr_robot
 
  **Example buy or sell signal**
- 
+
 ![image](https://user-images.githubusercontent.com/54438080/164044091-8cb1ab37-7fe5-4d71-8976-4de3c8ec8d7a.png)
 
 
