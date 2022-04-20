@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "description": "Binance Futures Signals from https://t.me/sinaisfortesfutures",
   "engines": {
-    "node": ">= 14.0.0",
+    "node": "^14 || ^16",
     "npm": ">= 3.0.0"
   },
   "main": "index.js",
