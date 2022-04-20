@@ -16,7 +16,7 @@ If you like my project please help me with a small donation
 *[Note about Heroku](#note-about-heroku)
 
 # String Session Telegram Bot
-If using on Heroku or DigitalOcean, generate the session string using a telegram bot, such as https://t.me/StarkStringGenBot (opção Telethon) or another one of your choice
+If using on Heroku or DigitalOcean, generate the session string using a telegram bot, such as https://t.me/StarkStringGenBot (option Telethon) or another one of your choice
 
 Another alternative is https://www.youtube.com/watch?v=nIgFYfxuIkg
 
