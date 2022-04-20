@@ -45,6 +45,7 @@ let client;
 
   client.addEventHandler(onNewMessage, new NewMessage({}));
   console.log('\n', "Waiting for telegram notification to buy...");
+  checkHedgeMode();
   //await client.sendMessage('me', { message: `Waiting for telegram notification to buy...`, schedule: (15 * 1) + (Date.now() / 1000) });
 })();
 
@@ -184,6 +185,25 @@ async function openOrder(symbol, position, entryPoint, stopLoss, takeProfit) {
     console.log(buySymbol)
     return buySymbol
   }
+}
+
+// Change Hedge Mode
+async function checkHedgeMode() {
+  positionMode = await binance.futuresPositionSideDual().then(data => {
+    if(!data.dualSidePosition) {
+      console.log('HedgeMode: not in hedge mode');
+      changeHedgeMode();
+    }
+    else {
+      console.log('HedgeMode: in hedge mode');
+    }
+  }).catch((err) => console.log(err));
+}
+
+async function changeHedgeMode() {
+  changeMode = await binance.futuresChangePositionSideDual(true).then(data => {
+    console.log(data);
+  }).catch((err) => console.log(err));
 }
 
 /**
