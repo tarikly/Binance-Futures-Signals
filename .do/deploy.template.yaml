@@ -35,7 +35,7 @@ spec:
       value: "1"
     - key: MINUTES_CLOSE_ORDERS
       scope: RUN_AND_BUILD_TIME
-      value: "5"
+      value: "30"
     - key: VERSION
       scope: RUN_AND_BUILD_TIME
       value: "2"
