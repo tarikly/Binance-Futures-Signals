@@ -63,7 +63,7 @@ npm i
  - LEVERAGE="30" // Binance leverage
  - PERCENT_SIZE_AMOUNT="0.05" // Account balance percentage
  - TARGET_PROFIT="1" // Target Profit. Default: 1 (targets from 1 to 5)
- - STRING_SESSION="" // String that will be displayed in the terminal. Copy and paste here. Next time the bot starts it will not ask for the phone number and code. Or Generate the string at https://t.me/genStr_robot
+ - STRING_SESSION="" // String that will be displayed in the terminal. Copy and paste here. Next time the bot starts it will not ask for the phone number and code. Or Generate the string at https://t.me/StarkStringGenBot
 
  **Example buy or sell signal**
 

@@ -1,93 +1,94 @@
 Select Language: **Portuguese**, [English](https://github.com/lagoanova/Binance-Futures-Signals/blob/main/README.md)
 
+
 # Binance-Futures-Signals
-Binance Futures Signals from https://t.me/sinaisfortesfutures
+Binance Futures Signals do grupo free https://t.me/sinaisfortesfutures
 
 
-If you like my project please help me with a small donation
+Se você gostou deste projeto, considere ajudar por meio das opções abaixo ;)
 
 [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/ghostnetrn) or *[Donate](#donate)
 
 
-# Deploy to DigitalOcean
+# Instalação na nuvem na plataforma da DigitalOcean
 [![Deploy to DO](https://mp-assets1.sfo2.digitaloceanspaces.com/deploy-to-do/do-btn-blue.svg)](https://cloud.digitalocean.com/apps/new?repo=https://github.com/lagoanova/Binance-Futures-Signals/tree/main&refcode=a076ff7a9a6a)
 
-# Deploy to Heroku
+
+# Instalação na nuvem no Heroku (opção free)
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/lagoanova/Binance-Futures-Signals)
 
-*[Note about Heroku](#note-about-heroku)
+*[Nota sobre o Heroku](#note-about-heroku)
+
 
 # String Session Telegram Bot
-If using on Heroku or DigitalOcean, generate the session string using a telegram bot, such as https://t.me/StarkStringGenBot (option Telethon) or another one of your choice
+Se você estiver usando Heroku ou DigitalOcean, gere a Session String usando um bot do Telegram, como o https://t.me/StarkStringGenBot (escolha a opção Telethon) ou use outro método de sua escolha.
 
-Another alternative is https://www.youtube.com/watch?v=nIgFYfxuIkg
-
-
-## Getting Started
-Binance Futures Signals bot that buys when you recieve Telegram notification from this channel https://t.me/sinaisfortesfutures.
-
-## Installation guide
-**Link to manual** https://docs.google.com/document/d/e/2PACX-1vSkiTmErxbz_zvLRFW1-hhC20HYkJHKu_CWsx8LYL0cQGD7Fwk-6r2d9oXAbYZmtN37xwIERgfQJDgm/pub
-
-#### First, if you don't have node.js installed go to https://nodejs.org and install the lastest LTS version.
-#### Then install git https://git-scm.com/downloads, or you can just download zip file if you don't want to clone repository.
-#### Then go to https://my.telegram.org sign in, click Api developement tools and create an app to get app apiID and app apiHash.
-
-## After installation, you'll need to obtain an API ID and hash:
-
-- Login into your telegram account
-- Then click "API development tools" and fill your application details (only app title and short name required)
-- Finally, click "Create application"
-
-> Never share any API/authorization details, that will compromise your
-> application and account.
+Outra alternativa para gerar https://www.youtube.com/watch?v=nIgFYfxuIkg
 
 
-## Then Use the following commands either in VScode terminal or command prompt 
-```
-git clone https://github.com/lagoanova/Binance-Futures-Signals.git
-```
-```
-cd Binance-Futures-Signals
-```
+## Informações iniciais
+Binance Futures Signals é um bot que irá comprar sempre que uma notificação de compra chegar no grupo free https://t.me/sinaisfortesfutures.
+
+
+## Guia de Instalação
+**Link para o manual** https://docs.google.com/document/d/e/2PACX-1vSkiTmErxbz_zvLRFW1-hhC20HYkJHKu_CWsx8LYL0cQGD7Fwk-6r2d9oXAbYZmtN37xwIERgfQJDgm/pub
+
+
+#### Guia para instalação no seu computador (localmente)
+- Primeiro, se você não tiver o Node.js instalado, acesse https://nodejs.org, faça o download e instale a versão LTS.
+- Depois, baixe e instale o Git https://git-scm.com/downloads, ou você pode apenas baixar o arquivo ZIP do repositório do bot e descompactar, através do link https://github.com/lagoanova/Binance-Futures-Signals/archive/refs/heads/main.zip.
+- Depois acesse https://my.telegram.org, faça login e clique em Api developement tools para criar o seu app e gerar a apiID e a apiHash.
+
+## Como obter a API ID e apiHash:
+- Faça login em https://my.telegram.org
+- Clique em Api developement tools para criar o seu app e gerar a apiID e a apiHash
+
+> Nunca compartilhe sua API/Authorization details, pois isso pode comprometer sua conta do Telegram.
+
+
+## Após instalar o Node.js, acesse a pasta do seu bot e digite o comando 
 ```
 npm i
 ```
-#### Then edit the .env.example file and rename it to .env:
- - TELEGRAM_API_ID="" // ID Telegram of https://my.telegram.org
- - TELEGRAM_API_HASH="" // Hash Telegram of https://my.telegram.org
- - BINANCE_FUTURES_CHANNEL="1617612647" // default 1617612647
+
+
+#### Renomeie o arquivo env.example para .env e preencha com os dados abaixo:
+ - TELEGRAM_API_ID="" // ID Telegram de https://my.telegram.org
+ - TELEGRAM_API_HASH="" // Hash Telegram de https://my.telegram.org
+ - BINANCE_FUTURES_CHANNEL="1617612647" // padrão 1617612647
  - BINANCE_API_KEY="" // API KEY Binance
  - BINANCE_SECRET_KEY="" // SECRET KEY Binance
- - LEVERAGE="30" // Binance leverage
- - PERCENT_SIZE_AMOUNT="0.05" // Account balance percentage
- - TARGET_PROFIT="1" // Target Profit. Default: 1 (targets from 1 to 5)
- - STRING_SESSION="" // String that will be displayed in the terminal. Copy and paste here. Next time the bot starts it will not ask for the phone number and code. Or Generate the string at https://t.me/genStr_robot
+ - LEVERAGE="30" // Binance alavancagem
+ - PERCENT_SIZE_AMOUNT="0.05" // Percentual da sua stake por ordem
+ - TARGET_PROFIT="1" // Alvos de lucro. Padrão: 1 (os alvos vão de 1 a 5)
+ - STRING_SESSION="" // String do Telegram que você gerou com o bot acima ou então quando você instalou localmente em sua máquina. Copie e cole neste campo. Da próxima vez que o bot iniciar, ele não irá pedir o número de telefone e o código de ativação. O código pode ser obtido utilizando este bot https://t.me/StarkStringGenBot 
 
- **Example buy or sell signal**
+
+ **Example de um sinal recebido no grupo**
 
 ![image](https://user-images.githubusercontent.com/54438080/164044091-8cb1ab37-7fe5-4d71-8976-4de3c8ec8d7a.png)
 
 
-To start bot run this command
+## Para iniciar o bot, digite 
 ```
 npm start
 
 ```
 
-When bot is running it it will ask for your telephone number to log in to Telegram enter your telephone number with country code ex 55555555555 then press enter. Then telegram will send you a code to log in enter that number and press enter. If you have two step verification on the bot will ask for your two step password. Then leave the bot running and when you recieve a notification from the channel you select it will buy that coin.
+Observação: Se você instalou o bot localmente, sempre que você o iniciar, ele irá pedir seu número de telefone com código do país e DDD, no formato 55555555555. Após preencher, dê um ENTER. O Telegram irá enviar um código para que você possa logar na conta. Após digitar, tecle ENTER novamente. Se a autenticação de dois fatores estiver ativa em seu Telegram, o bot irá solicitar a senha. Após isso, o bot estará ativo e monitorando os sinais do grupo.
 
-## Channel
+## Canal
 
-#### 🏆 BINANCE FUTURES / Sinais Fortes Brazil https://t.me/sinaisfortesfutures
+#### 🏆 BINANCE FUTURES / Sinais Fortes Brasil https://t.me/sinaisfortesfutures
 
-## Note about Heroku
-Note: Person accounts receive a base of 550 free dynamic hours per month. In addition to these base hours, credit card verified accounts will receive an additional 450 hours to their free monthly dyno quota. This means that you can receive a total of 1000 free dynamic hours per month if you verify your account with a credit card (video https://www.youtube.com/watch?v=KhOjVv2sXhs).
 
-As the bot will be on 24/7, consider adding the card (preferably virtual) to increase your free monthly base hours to 1000 hours. Source: https://devcenter.heroku.com/articles/free-dyno-hours
+## Nota sobre o Heroku
+Observação: as contas pessoais recebem a base de 550 horas dinâmicas gratuitas por mês. Além dessas horas básicas, as contas verificadas com cartão de crédito receberão 450 horas adicionais à sua cota mensal gratuita de dinamômetro. Isso significa que você pode receber um total de 1.000 horas dinâmicas gratuitas por mês se verificar sua conta com cartão de crédito (vídeo https://www.youtube.com/watch?v=KhOjVv2sXhs).
 
-## Donate
-If this bot helped you out feel free to donate.
+Como o bot estará disponível 24 horas por dia, 7 dias por semana, considere adicionar o cartão (de preferência virtual) para aumentar suas horas-base mensais gratuitas para 1000 horas. Fonte: https://devcenter.heroku.com/articles/free-dyno-hours
+
+## Doações
+Se este bot o ajudou, sinta-se à vontade para doar.
 
 - BTC: bc1qmdnrffyvhhyhm05he9wm20zjv4nnqugf0kkgyx
 - BNB: bnb1zg5yfv3uplxq3vyafez7387yg52k4l9cwxfjjk
@@ -98,10 +99,10 @@ If this bot helped you out feel free to donate.
 - XRP: rAKJqSjf3ffPqNgjiVA7gxysa8BZPegfG
 - XLM: GCF5RIUK5V3MSMXAMQOI56MALHIZDIQ4XUUWTWAVAGV62Y3UJDNZBI5B
 
-## Contribute
-If you can code and want to make this project better please feel free to contribute.
+## Contribuições
+Se você pode codificar e quiser melhorar este projeto, sinta-se à vontade para contribuir.
 
-## Disclaimer
-⚠️ Use at own risk ⚠️. Investing in cryptocurrency is risky. This is not financial advice.
+## Isenção de responsabilidade
+⚠️ Uso por conta e risco ⚠️. Investir em criptomoeda é arriscado. Este não é um conselho financeiro.
 
-If you have an issue please don't post screenshots with personal information like seed phrase, telephone number, Telegram code, Telegram two factor password, or Telegram string session. Please keep that information private!
+Se você tiver um problema, abra uma issue no repositório do Git, e não publique capturas de tela com informações pessoais, como frase inicial, número de telefone, código do Telegram, senha de dois fatores do Telegram ou sessão de string do Telegram. Por favor, mantenha essa informação privada!
