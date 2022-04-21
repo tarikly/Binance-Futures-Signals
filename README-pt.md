@@ -1,8 +1,8 @@
-Select Language: **Portuguese**, [English](https://github.com/lagoanova/Binance-Futures-Signals/blob/main/README.md)
+Selecione o idioma: **Portuguese**, [English](https://github.com/lagoanova/Binance-Futures-Signals/blob/main/README.md)
 
 
 # Binance-Futures-Signals
-Binance Futures Signals do grupo free https://t.me/sinaisfortesfutures
+Binance Futures Signals é um bot que pega os sinais de compra/venda enviadas pelo grupo free https://t.me/sinaisfortesfutures
 
 
 Se você gostou deste projeto, considere ajudar por meio das opções abaixo ;)
