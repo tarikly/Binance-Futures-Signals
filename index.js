@@ -23,7 +23,7 @@ const binance = new Binance().options({
 let leverage = parseInt(process.env.LEVERAGE)
 const percent = process.env.PERCENT_SIZE_AMOUNT
 const targetProfit = parseInt(process.env.TARGET_PROFIT)
-const minutes = parseInt(process.env.MINUTES_CLOSE_ORDERS)
+const minutes = Number(process.env.MINUTES_CLOSE_ORDERS)
 const version = process.env.VERSION;
 let client;
 
