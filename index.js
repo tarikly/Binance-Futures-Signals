@@ -8,6 +8,7 @@ const binanceFuturesChannel = parseInt(process.env.BINANCE_FUTURES_CHANNEL);
 const stringSession = new StringSession(process.env.STRING_SESSION);
 const input = require("input");
 const Binance = require("node-binance-api")
+const cron = require('node-cron');
 
 // Binance
 const binance = new Binance().options({
@@ -52,8 +53,8 @@ let client;
 
 async function onNewMessageBinanceFutures(message) {
   const channelBinanceFutures = message.peerId.channelId == binanceFuturesChannel
-	const arrayFutures = message.message.toUpperCase().trim().split(/\n/g)
-	const hasTextEntryPoint = /PONTO DE ENTRADA\:/.test(arrayFutures)
+  const arrayFutures = message.message.toUpperCase().trim().split(/\n/g)
+  const hasTextEntryPoint = /PONTO DE ENTRADA\:/.test(arrayFutures)
 
   try {
     if (channelBinanceFutures && hasTextEntryPoint) {
@@ -175,11 +176,11 @@ async function openOrder(symbol, position, entryPoint, stopLoss, takeProfit) {
     })
     //const buySymbol = await binance.futuresMarketSell(symbol, qty)
     const targetProfit = await binance.futuresBuy(symbol, qty, false, {
-      type: 'TAKE_PROFIT_MARKET', closePosition: true, stopPrice: parseFloat(takeProfit), positionSide: position, timeInForce: 'GTC'
+      type: 'TAKE_PROFIT_MARKET', workingType: 'MARK_PRICE', closePosition: true, stopPrice: parseFloat(takeProfit), positionSide: position, timeInForce: 'GTC'
     });
 
     const stopMarket = await binance.futuresBuy(symbol, qty, false, {
-      type: 'STOP_MARKET', closePosition: true, stopPrice: parseFloat(stopLoss), positionSide: position, timeInForce: 'GTC'
+      type: 'STOP_MARKET', workingType: 'MARK_PRICE', closePosition: true, stopPrice: parseFloat(stopLoss), positionSide: position, timeInForce: 'GTC'
     });
 
     console.log(buySymbol)
@@ -187,10 +188,98 @@ async function openOrder(symbol, position, entryPoint, stopLoss, takeProfit) {
   }
 }
 
+// Check Open Orders
+const checkOrders = async () => {
+  try {
+    const position_data = await binance.futuresPositionRisk()
+    const ordens = await binance.futuresOpenOrders()
+    const ordensAbertas = []
+    const posicionOpen = []
+    const minutes = 2
+
+    position_data.forEach(item => {
+      if (item.positionAmt > 0) posicionOpen.push(item)
+    })
+
+    ordens.forEach(item => {
+      ordensAbertas.push(item)
+    })
+
+    // Orders Limit Expired Time
+    ordensAbertas.forEach(async item => {
+      let date = item.time
+      let updatetime = new Date()
+
+      console.log('Data ordem: ' + date)
+      console.log('Data atual: ' + updatetime.getTime())
+      console.log((updatetime.getTime() - date) / 1000 / 60)
+
+      //let quote = await binance.futuresMarkPrice(item.symbol)
+      //let markPrice = parseFloat(quote.markPrice)
+
+      const dataAtual = (updatetime.getTime())
+      const tempoLimite = (minutes * 60000)
+      const typeOrder = item.type
+
+      const orderNotReachEntryPoint =
+        (
+          (dataAtual - date) > tempoLimite &&
+          typeOrder === 'LIMIT'
+        )
+
+      console.log((dataAtual - date) > tempoLimite, tempoLimite, (dataAtual - date))
+      console.log(typeOrder === 'LIMIT')
+
+      console.log(item)
+
+      if (orderNotReachEntryPoint) {
+        await binance.futuresCancel(item.symbol, { orderId: item.orderId })
+        console.log('Ordens encerradas')
+      }
+
+    })
+
+    const ordensStopeTakeProfit = ordensAbertas
+      .filter(({ type }) => type === 'STOP_MARKET' || type === 'TAKE_PROFIT_MARKET')
+
+    //console.log(ordensStopeTakeProfit)
+    //console.log('=======')
+    //console.log(posicionOpen)
+
+
+    const apenasOrdensSemPosicao = ordensStopeTakeProfit
+      .filter(({ symbol: coin1 }) => !posicionOpen
+        .some(({ symbol: coin2 }) => coin1 === coin2));
+
+
+    const apenasOrdensComPosicao = ordensStopeTakeProfit
+      .filter(ordem => posicionOpen
+        .filter(posicao => posicao.symbol === ordem.symbol &&
+          posicao.positionSide === ordem.positionSide).length);
+
+
+    apenasOrdensSemPosicao.forEach(async item => {
+      await binance.futuresCancel(item.symbol, { orderId: item.orderId })
+    })
+
+    console.log(apenasOrdensSemPosicao)
+    //console.log(posicionOpen)
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+// Check Order Limit Open Expired Time
+
+
+setInterval(function () {
+  checkOrders();
+}, 5000)
+
 // Change Hedge Mode
 async function checkHedgeMode() {
   positionMode = await binance.futuresPositionSideDual().then(data => {
-    if(!data.dualSidePosition) {
+    if (!data.dualSidePosition) {
       console.log('HedgeMode: not in hedge mode');
       changeHedgeMode();
     }
