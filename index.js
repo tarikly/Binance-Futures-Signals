@@ -73,7 +73,7 @@ async function onNewMessageBinanceFutures(message) {
         if (item.includes('LONG')) position = 'LONG'
         if (item.includes('SHORT')) position = 'SHORT'
 
-        if (/\/USDT/.test(item)) {
+        if (/MOEDA\:/.test(item)) {
           coin = itemSearch(item).replace(/[^a-z]/gi, '')
         }
 
@@ -230,7 +230,7 @@ const checkOrders = async () => {
         .filter(posicao => posicao.symbol === ordem.symbol &&
           posicao.positionSide === ordem.positionSide).length);
 
-	// Orders Limit Expired Time
+    // Orders Limit Expired Time
     ordensAbertas.forEach(async item => {
       let date = item.time
       let updatetime = new Date()
@@ -254,23 +254,23 @@ const checkOrders = async () => {
       console.log((dataAtual - date) > tempoLimite, tempoLimite, (dataAtual - date))
       console.log(typeOrder === 'LIMIT')
 
-     // console.log(item)
+      // console.log(item)
 
       if (orderNotReachEntryPoint) {
         await binance.futuresCancel(item.symbol, { orderId: item.orderId })
-		
-		console.log('Ordens encerradas')
+
+        console.log('Ordens encerradas')
       }
-		
+
     })
-	
+
     console.log('===========================')
     console.log(apenasOrdensSemPosicao)
-	
-	apenasOrdensSemPosicao.forEach(async item => {
-		await binance.futuresCancel(item.symbol, { orderId: item.orderId })
-		})
-		
+
+    apenasOrdensSemPosicao.forEach(async item => {
+      await binance.futuresCancel(item.symbol, { orderId: item.orderId })
+    })
+
     //console.log(positionOpen)
   } catch (e) {
     console.log(e)
