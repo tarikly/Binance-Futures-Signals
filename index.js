@@ -258,6 +258,7 @@ const checkOrders = async () => {
       const day = dateOpenOrder.getDate().toString().padStart(2, '0')
       const month = (dateOpenOrder.getMonth() + 1).toString().padStart(2, '0')
       const year = dateOpenOrder.getFullYear()
+      const hour = dateOpenOrder.getHours()
       const min = dateOpenOrder.getMinutes()
       const seconds = dateOpenOrder.getMinutes()
 
@@ -266,7 +267,7 @@ const checkOrders = async () => {
 	  Simbolo: ${item.symbol}
 	  Ordem: ${item.type}
 	  Gatilho: ${item.stopPrice}
-	  Data Abertura Ordem: ${day}/${month}/${year} ${min}:${seconds}
+	  Data Abertura Ordem: ${day}/${month}/${year} ${hour}:${min}:${seconds}
 	  `
 
       // console.log((updatetime.getTime() - date) / 1000 / 60)
