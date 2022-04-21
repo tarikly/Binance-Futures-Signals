@@ -33,6 +33,9 @@ spec:
     - key: TARGET_PROFIT
       scope: RUN_AND_BUILD_TIME
       value: "1"
+    - key: MINUTES_CLOSE_ORDERS
+      scope: RUN_AND_BUILD_TIME
+      value: "5"
     - key: VERSION
       scope: RUN_AND_BUILD_TIME
       value: "2"

@@ -64,6 +64,11 @@
       "required": true,
       "value": "1"
     },
+    "MINUTES_CLOSE_ORDERS": {
+      "description": "Close limit orders that have not been filled. Default: 5 minutes",
+      "required": true,
+      "value": "5"
+    },
     "VERSION": {
       "description": "Version bot",
       "required": true,

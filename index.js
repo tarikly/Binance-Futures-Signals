@@ -23,6 +23,7 @@ const binance = new Binance().options({
 let leverage = parseInt(process.env.LEVERAGE)
 const percent = process.env.PERCENT_SIZE_AMOUNT
 const targetProfit = parseInt(process.env.TARGET_PROFIT)
+const minutes = parseInt(process.env.MINUTES_CLOSE_ORDERS)
 const version = process.env.VERSION;
 let client;
 
@@ -155,11 +156,11 @@ async function openOrder(symbol, position, entryPoint, stopLoss, takeProfit) {
     })
     //const buySymbol = await binance.futuresMarketBuy(symbol, qty)
     const targetProfit = await binance.futuresSell(symbol, qty, false, {
-      type: 'TAKE_PROFIT_MARKET', workingType: 'MARK_PRICE', closePosition: true, stopPrice: parseFloat(takeProfit), positionSide: position, timeInForce: 'GTC'
+      type: 'TAKE_PROFIT_MARKET', workingType: 'CONTRACT_PRICE', closePosition: true, stopPrice: parseFloat(takeProfit), positionSide: position, timeInForce: 'GTC'
     });
 
     const stopMarket = await binance.futuresSell(symbol, qty, false, {
-      type: 'STOP_MARKET', workingType: 'MARK_PRICE', closePosition: true, stopPrice: parseFloat(stopLoss), positionSide: position, timeInForce: 'GTC'
+      type: 'STOP_MARKET', workingType: 'CONTRACT_PRICE', closePosition: true, stopPrice: parseFloat(stopLoss), positionSide: position, timeInForce: 'GTC'
     });
 
     //return { buySymbol, takeProfit, stopMarket }
@@ -176,11 +177,11 @@ async function openOrder(symbol, position, entryPoint, stopLoss, takeProfit) {
     })
     //const buySymbol = await binance.futuresMarketSell(symbol, qty)
     const targetProfit = await binance.futuresBuy(symbol, qty, false, {
-      type: 'TAKE_PROFIT_MARKET', workingType: 'MARK_PRICE', closePosition: true, stopPrice: parseFloat(takeProfit), positionSide: position, timeInForce: 'GTC'
+      type: 'TAKE_PROFIT_MARKET', workingType: 'CONTRACT_PRICE', closePosition: true, stopPrice: parseFloat(takeProfit), positionSide: position, timeInForce: 'GTC'
     });
 
     const stopMarket = await binance.futuresBuy(symbol, qty, false, {
-      type: 'STOP_MARKET', workingType: 'MARK_PRICE', closePosition: true, stopPrice: parseFloat(stopLoss), positionSide: position, timeInForce: 'GTC'
+      type: 'STOP_MARKET', workingType: 'CONTRACT_PRICE', closePosition: true, stopPrice: parseFloat(stopLoss), positionSide: position, timeInForce: 'GTC'
     });
 
     console.log(buySymbol)
@@ -188,24 +189,48 @@ async function openOrder(symbol, position, entryPoint, stopLoss, takeProfit) {
   }
 }
 
+
+// Check Order Limit Open Expired Time
+setInterval(function () {
+  checkOrders();
+  console.log(`🔎 O bot irá cancelar as ordens LIMIT com mais de ${minutes} minuto(s) abertas!`)
+}, 5000)
+
 // Check Open Orders
 const checkOrders = async () => {
   try {
     const position_data = await binance.futuresPositionRisk()
     const ordens = await binance.futuresOpenOrders()
     const ordensAbertas = []
-    const posicionOpen = []
-    const minutes = 2
+    const positionOpen = []
 
     position_data.forEach(item => {
-      if (item.positionAmt > 0) posicionOpen.push(item)
+      if (item.positionAmt > 0) positionOpen.push(item)
     })
 
     ordens.forEach(item => {
       ordensAbertas.push(item)
     })
 
-    // Orders Limit Expired Time
+    const ordensStopeTakeProfit = ordensAbertas
+      .filter(({ type }) => type === 'STOP_MARKET' || type === 'TAKE_PROFIT_MARKET')
+
+    //console.log(ordensStopeTakeProfit)
+    //console.log('=======')
+    //console.log(positionOpen)
+
+
+    const apenasOrdensSemPosicao = ordensStopeTakeProfit
+      .filter(({ symbol: coin1 }) => !positionOpen
+        .some(({ symbol: coin2 }) => coin1 === coin2));
+
+
+    const apenasOrdensComPosicao = ordensStopeTakeProfit
+      .filter(ordem => positionOpen
+        .filter(posicao => posicao.symbol === ordem.symbol &&
+          posicao.positionSide === ordem.positionSide).length);
+
+	// Orders Limit Expired Time
     ordensAbertas.forEach(async item => {
       let date = item.time
       let updatetime = new Date()
@@ -223,58 +248,34 @@ const checkOrders = async () => {
 
       const orderNotReachEntryPoint =
         (
-          (dataAtual - date) > tempoLimite &&
-          typeOrder === 'LIMIT'
+          (dataAtual - date) > tempoLimite && typeOrder === 'LIMIT'
         )
 
       console.log((dataAtual - date) > tempoLimite, tempoLimite, (dataAtual - date))
       console.log(typeOrder === 'LIMIT')
 
-      console.log(item)
+     // console.log(item)
 
       if (orderNotReachEntryPoint) {
         await binance.futuresCancel(item.symbol, { orderId: item.orderId })
-        console.log('Ordens encerradas')
+		
+		console.log('Ordens encerradas')
       }
-
+		
     })
-
-    const ordensStopeTakeProfit = ordensAbertas
-      .filter(({ type }) => type === 'STOP_MARKET' || type === 'TAKE_PROFIT_MARKET')
-
-    //console.log(ordensStopeTakeProfit)
-    //console.log('=======')
-    //console.log(posicionOpen)
-
-
-    const apenasOrdensSemPosicao = ordensStopeTakeProfit
-      .filter(({ symbol: coin1 }) => !posicionOpen
-        .some(({ symbol: coin2 }) => coin1 === coin2));
-
-
-    const apenasOrdensComPosicao = ordensStopeTakeProfit
-      .filter(ordem => posicionOpen
-        .filter(posicao => posicao.symbol === ordem.symbol &&
-          posicao.positionSide === ordem.positionSide).length);
-
-
-    apenasOrdensSemPosicao.forEach(async item => {
-      await binance.futuresCancel(item.symbol, { orderId: item.orderId })
-    })
-
+	
+    console.log('===========================')
     console.log(apenasOrdensSemPosicao)
-    //console.log(posicionOpen)
+	
+	apenasOrdensSemPosicao.forEach(async item => {
+		await binance.futuresCancel(item.symbol, { orderId: item.orderId })
+		})
+		
+    //console.log(positionOpen)
   } catch (e) {
     console.log(e)
   }
 }
-
-// Check Order Limit Open Expired Time
-
-
-setInterval(function () {
-  checkOrders();
-}, 5000)
 
 // Change Hedge Mode
 async function checkHedgeMode() {
