@@ -235,10 +235,6 @@ const checkOrders = async () => {
       let date = item.time
       let updatetime = new Date()
 
-      console.log('Data ordem: ' + date)
-      console.log('Data atual: ' + updatetime.getTime())
-      console.log((updatetime.getTime() - date) / 1000 / 60)
-
       //let quote = await binance.futuresMarkPrice(item.symbol)
       //let markPrice = parseFloat(quote.markPrice)
 
@@ -251,10 +247,32 @@ const checkOrders = async () => {
           (dataAtual - date) > tempoLimite && typeOrder === 'LIMIT'
         )
 
-      console.log((dataAtual - date) > tempoLimite, tempoLimite, (dataAtual - date))
-      console.log(typeOrder === 'LIMIT')
+      //console.log((dataAtual - date) > tempoLimite, tempoLimite, (dataAtual - date))
+      //console.log(new Date(dataAtual))
 
       // console.log(item)
+
+      // Report 		
+      const dateOpenOrder = new Date(date)
+
+      const day = dateOpenOrder.getDate().toString().padStart(2, '0')
+      const month = (dateOpenOrder.getMonth() + 1).toString().padStart(2, '0')
+      const year = dateOpenOrder.getFullYear()
+      const min = dateOpenOrder.getMinutes()
+      const seconds = dateOpenOrder.getMinutes()
+
+      const formatted = `
+	  
+	  Simbolo: ${item.symbol}
+	  Ordem: ${item.type}
+	  Gatilho: ${item.stopPrice}
+	  Data Abertura Ordem: ${day}/${month}/${year} ${min}:${seconds}
+	  `
+
+      // console.log((updatetime.getTime() - date) / 1000 / 60)
+
+      //console.log(item)
+      console.log(formatted)
 
       if (orderNotReachEntryPoint) {
         await binance.futuresCancel(item.symbol, { orderId: item.orderId })
@@ -276,6 +294,7 @@ const checkOrders = async () => {
     console.log(e)
   }
 }
+
 
 
 // Change Hedge Mode
