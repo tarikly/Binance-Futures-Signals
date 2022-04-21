@@ -1,5 +1,4 @@
-
-Select Language: **English**, [Portuguese](https://github.com/lagoanova/Binance-Futures-Signals/blob/main/README-pt.md)
+Select Language: **Portuguese**, [English](https://github.com/lagoanova/Binance-Futures-Signals/blob/main/README.md)
 
 # Binance-Futures-Signals
 Binance Futures Signals from https://t.me/sinaisfortesfutures
