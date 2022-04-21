@@ -194,7 +194,7 @@ async function openOrder(symbol, position, entryPoint, stopLoss, takeProfit) {
 setInterval(function () {
   checkOrders();
   console.log(`🔎 O bot irá cancelar as ordens LIMIT com mais de ${minutes} minuto(s) abertas!`)
-}, 5000)
+}, 10000)
 
 // Check Open Orders
 const checkOrders = async () => {
@@ -258,7 +258,9 @@ const checkOrders = async () => {
 
       if (orderNotReachEntryPoint) {
         await binance.futuresCancel(item.symbol, { orderId: item.orderId })
-
+        apenasOrdensSemPosicao.forEach(async item => {
+          await binance.futuresCancel(item.symbol, { orderId: item.orderId })
+        })
         console.log('Ordens encerradas')
       }
 
@@ -267,15 +269,14 @@ const checkOrders = async () => {
     console.log('===========================')
     console.log(apenasOrdensSemPosicao)
 
-    apenasOrdensSemPosicao.forEach(async item => {
-      await binance.futuresCancel(item.symbol, { orderId: item.orderId })
-    })
+
 
     //console.log(positionOpen)
   } catch (e) {
     console.log(e)
   }
 }
+
 
 // Change Hedge Mode
 async function checkHedgeMode() {
