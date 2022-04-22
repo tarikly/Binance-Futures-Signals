@@ -9,6 +9,10 @@ If you like my project please help me with a small donation
 
 [!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/ghostnetrn) or *[Donate](#donate)
 
+# Installation Tutorial Video
+
+ 1. [Playlist YouTube](https://www.youtube.com/playlist?list=PLAGwr7vhEOsxSGRPp-Wi1PZwPBU8bnjuG)
+ 2. [Increasing free hours on Heroku](https://www.youtube.com/watch?v=NrmB6MmNx2g)
 
 # Deploy to DigitalOcean
 [![Deploy to DO](https://mp-assets1.sfo2.digitaloceanspaces.com/deploy-to-do/do-btn-blue.svg)](https://cloud.digitalocean.com/apps/new?repo=https://github.com/lagoanova/Binance-Futures-Signals/tree/main&refcode=a076ff7a9a6a)
