@@ -172,6 +172,15 @@ async function openOrder(symbol, position, entryPoint, stopLoss, takeProfit) {
       type: 'STOP_MARKET', workingType: 'CONTRACT_PRICE', closePosition: true, stopPrice: parseFloat(stopLoss), positionSide: position, timeInForce: 'GTC'
     });
 
+    const trailingStop = await binance.futuresOrder("SELL", symbol, qty, false,
+      {
+        type: "TRAILING_STOP_MARKET",
+        workingType: 'MARK_PRICE',
+        callbackRate: 2,
+        stopPrice: parseFloat(takeProfit)
+      }
+    );
+
     //return { buySymbol, takeProfit, stopMarket }
     console.log(buySymbol)
 
@@ -192,6 +201,15 @@ async function openOrder(symbol, position, entryPoint, stopLoss, takeProfit) {
     const stopMarket = await binance.futuresBuy(symbol, qty, false, {
       type: 'STOP_MARKET', workingType: 'CONTRACT_PRICE', closePosition: true, stopPrice: parseFloat(stopLoss), positionSide: position, timeInForce: 'GTC'
     });
+
+    const trailingStop = await binance.futuresOrder("BUY", symbol, qty, false,
+      {
+        type: "TRAILING_STOP_MARKET",
+        workingType: 'MARK_PRICE',
+        callbackRate: 2,
+        stopPrice: parseFloat(takeProfit)
+      }
+    );
 
     console.log(buySymbol)
     return buySymbol
