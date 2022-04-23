@@ -82,12 +82,13 @@ async function onNewMessageBinanceFutures(message) {
         if (item.includes('LONG')) position = 'LONG'
         if (item.includes('SHORT')) position = 'SHORT'
 
+        item.replace(',', '.')
         if (/MOEDA\:/.test(item)) {
           coin = itemSearch(item).replace(/[^a-z]/gi, '')
         }
 
         if (/ENTRADA\:/.test(item)) {
-          entryPoint = itemSearch(item)
+          entryPoint = itemSearch(item).replace(',', '.')
         }
 
         if (/ALAVANCAGEM\:/.test(item)) {
@@ -95,11 +96,14 @@ async function onNewMessageBinanceFutures(message) {
         }
 
         if (/STOP LOSS\:/.test(item)) {
-          stopLoss = itemSearch(item)
+          stopLoss = itemSearch(item).replace(',', '.')
         }
 
         if (/ALVOS\:/.test(item)) {
+
           targets = itemSearch(item).split(' - ')
+
+          targets = targets.map(item => item.replace(',', '.'))
         }
 
       })
