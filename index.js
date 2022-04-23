@@ -206,7 +206,7 @@ async function openOrder(symbol, position, entryPoint, stopLoss, takeProfit) {
       {
         type: "TRAILING_STOP_MARKET",
         workingType: 'MARK_PRICE',
-        callbackRate: 2,
+        callbackRate: 5,
         stopPrice: parseFloat(takeProfit)
       }
     );
