@@ -9,6 +9,9 @@ const stringSession = new StringSession(process.env.STRING_SESSION);
 const input = require("input");
 const Binance = require("node-binance-api")
 const cron = require('node-cron');
+async function chalk() {
+  return (await import("chalk")).default;
+}
 
 // Binance
 const binance = new Binance().options({
@@ -26,6 +29,9 @@ const targetProfit = parseInt(process.env.TARGET_PROFIT)
 const minutes = parseInt(process.env.MINUTES_CLOSE_ORDERS)
 const version = process.env.VERSION;
 let client;
+
+// colors
+async function msgColorBlue(message) { console.log((await chalk()).bgWhite.blue(">>>", message)) }
 
 /**
  * 
@@ -46,7 +52,10 @@ let client;
   console.log("Your string session is:", client.session.save(), '\n');
 
   client.addEventHandler(onNewMessage, new NewMessage({}));
-  console.log('\n', ">>> Waiting for telegram notification to buy...");
+  //console.log('\n', chalk.yellow(">>> Waiting for telegram notification to buy..."));
+  //console.log((await chalk()).yellow(">>>", "Waiting for telegram notification to buy..."));
+  msgColorBlue('Waiting for telegram notification to buy...')
+
   checkHedgeMode();
   //await client.sendMessage('me', { message: `Waiting for telegram notification to buy...`, schedule: (15 * 1) + (Date.now() / 1000) });
 })();
@@ -194,7 +203,7 @@ async function openOrder(symbol, position, entryPoint, stopLoss, takeProfit) {
 setInterval(function () {
   checkOrders();
   console.log(`🔎 O bot irá cancelar as ordens sem posição com mais de ${minutes} minuto(s) aberta(s)!`)
-}, 10000)
+}, 5000)
 
 
 // Check Open Orders
@@ -203,36 +212,37 @@ const checkOrders = async () => {
     const position_data = await binance.futuresPositionRisk()
     const ordens = await binance.futuresOpenOrders()
     const ordensAbertas = []
-    const positionOpen = []
-
-    position_data.forEach(item => {
-      if (item.positionAmt > 0) positionOpen.push(item)
-    })
+    const openPosition = position_data.filter(el => +el.entryPrice !== 0) // filter only open positions
 
     ordens.forEach(item => {
       ordensAbertas.push(item)
     })
 
+    //console.log(openPosition)
+    /*
     const ordensStopeTakeProfit = ordensAbertas
       .filter(({ type }) => type === 'STOP_MARKET' || type === 'TAKE_PROFIT_MARKET')
+    */
 
     //console.log(ordensStopeTakeProfit)
     //console.log('=======')
-    //console.log(positionOpen)
+    //console.log(openPosition)
 
 
-    const apenasOrdensSemPosicao = ordensAbertas
-      .filter(({ symbol: coin1 }) => !positionOpen
+    const ordersWithoutPosition = ordensAbertas
+      .filter(({ symbol: coin1 }) => !openPosition
         .some(({ symbol: coin2 }) => coin1 === coin2));
 
-
+    //console.log(ordersWithoutPosition)
+    /*
     const apenasOrdensComPosicao = ordensAbertas
-      .filter(ordem => positionOpen
+      .filter(ordem => openPosition
         .filter(posicao => posicao.symbol === ordem.symbol &&
           posicao.positionSide === ordem.positionSide).length);
+    */
 
     // Orders Limit Expired Time
-    apenasOrdensSemPosicao.forEach(async item => {
+    ordersWithoutPosition.forEach(async item => {
       let date = item.time
       let updatetime = new Date()
 
@@ -278,7 +288,7 @@ const checkOrders = async () => {
         await binance.futuresCancel(item.symbol, { orderId: item.orderId })
 
         /*
-        apenasOrdensSemPosicao.forEach(async item => {
+        ordersWithoutPosition.forEach(async item => {
               await binance.futuresCancel(item.symbol, { orderId: item.orderId })
             })
         */
@@ -289,7 +299,7 @@ const checkOrders = async () => {
         await binance.futuresCancel(item.symbol, { orderId: item.orderId })
 
         /*
-        apenasOrdensSemPosicao.forEach(async item => {
+        ordersWithoutPosition.forEach(async item => {
               await binance.futuresCancel(item.symbol, { orderId: item.orderId })
             })
         */
@@ -298,12 +308,7 @@ const checkOrders = async () => {
 
     })
 
-    console.log('===========================')
-    console.log(apenasOrdensSemPosicao)
-
-
-
-    //console.log(positionOpen)
+    //console.log(openPosition)
   } catch (e) {
     console.log(e)
   }
