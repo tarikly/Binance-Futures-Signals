@@ -46,7 +46,7 @@ let client;
   console.log("Your string session is:", client.session.save(), '\n');
 
   client.addEventHandler(onNewMessage, new NewMessage({}));
-  console.log('\n', "Waiting for telegram notification to buy...");
+  console.log('\n', ">>> Waiting for telegram notification to buy...");
   checkHedgeMode();
   //await client.sendMessage('me', { message: `Waiting for telegram notification to buy...`, schedule: (15 * 1) + (Date.now() / 1000) });
 })();
@@ -196,6 +196,7 @@ setInterval(function () {
   console.log(`🔎 O bot irá cancelar as ordens LIMIT com mais de ${minutes} minuto(s) aberta(s)!`)
 }, 10000)
 
+
 // Check Open Orders
 const checkOrders = async () => {
   try {
@@ -220,18 +221,18 @@ const checkOrders = async () => {
     //console.log(positionOpen)
 
 
-    const apenasOrdensSemPosicao = ordensStopeTakeProfit
+    const apenasOrdensSemPosicao = ordensAbertas
       .filter(({ symbol: coin1 }) => !positionOpen
         .some(({ symbol: coin2 }) => coin1 === coin2));
 
 
-    const apenasOrdensComPosicao = ordensStopeTakeProfit
+    const apenasOrdensComPosicao = ordensAbertas
       .filter(ordem => positionOpen
         .filter(posicao => posicao.symbol === ordem.symbol &&
           posicao.positionSide === ordem.positionSide).length);
 
     // Orders Limit Expired Time
-    ordensAbertas.forEach(async item => {
+    apenasOrdensSemPosicao.forEach(async item => {
       let date = item.time
       let updatetime = new Date()
 
@@ -242,10 +243,8 @@ const checkOrders = async () => {
       const tempoLimite = (minutes * 60000)
       const typeOrder = item.type
 
-      const orderNotReachEntryPoint =
-        (
-          (dataAtual - date) > tempoLimite && typeOrder === 'LIMIT'
-        )
+      const orderNotReachLimit = ((dataAtual - date) > tempoLimite && typeOrder === 'LIMIT')
+      const orderNotReachDiffLimit = ((dataAtual - date) > tempoLimite + 30000 && typeOrder !== 'LIMIT')
 
       //console.log((dataAtual - date) > tempoLimite, tempoLimite, (dataAtual - date))
       //console.log(new Date(dataAtual))
@@ -275,12 +274,26 @@ const checkOrders = async () => {
       //console.log(item)
       console.log(formatted)
 
-      if (orderNotReachEntryPoint) {
+      if (orderNotReachLimit) {
         await binance.futuresCancel(item.symbol, { orderId: item.orderId })
+
+        /*
         apenasOrdensSemPosicao.forEach(async item => {
-          await binance.futuresCancel(item.symbol, { orderId: item.orderId })
-        })
-        console.log('Ordens encerradas')
+              await binance.futuresCancel(item.symbol, { orderId: item.orderId })
+            })
+        */
+        console.log('>>> As ordens sem posição aberta foram encerradas!')
+      }
+
+      if (orderNotReachDiffLimit) {
+        await binance.futuresCancel(item.symbol, { orderId: item.orderId })
+
+        /*
+        apenasOrdensSemPosicao.forEach(async item => {
+              await binance.futuresCancel(item.symbol, { orderId: item.orderId })
+            })
+        */
+        console.log('>>> As ordens sem posição aberta foram encerradas!')
       }
 
     })
@@ -296,17 +309,15 @@ const checkOrders = async () => {
   }
 }
 
-
-
 // Change Hedge Mode
 async function checkHedgeMode() {
   positionMode = await binance.futuresPositionSideDual().then(data => {
     if (!data.dualSidePosition) {
-      console.log('HedgeMode: not in hedge mode');
+      console.log('>>> HedgeMode: not in hedge mode');
       changeHedgeMode();
     }
     else {
-      console.log('HedgeMode: in hedge mode');
+      console.log('>>> HedgeMode: in hedge mode');
     }
   }).catch((err) => console.log(err));
 }
