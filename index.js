@@ -193,7 +193,7 @@ async function openOrder(symbol, position, entryPoint, stopLoss, takeProfit) {
 // Check Order Limit Open Expired Time
 setInterval(function () {
   checkOrders();
-  console.log(`🔎 O bot irá cancelar as ordens LIMIT com mais de ${minutes} minuto(s) aberta(s)!`)
+  console.log(`🔎 O bot irá cancelar as ordens sem posição com mais de ${minutes} minuto(s) aberta(s)!`)
 }, 10000)
 
 
