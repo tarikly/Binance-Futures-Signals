@@ -237,7 +237,7 @@ setInterval(function () {
   checkOrders();
   console.log(`🔎 O bot irá cancelar as ordens sem posição com mais de ${minutes} minuto(s) aberta(s)!`)
   msgColorBlue('Waiting for telegram notification to buy...')
-}, 10000)
+}, 30000)
 
 
 // Check Open Orders
