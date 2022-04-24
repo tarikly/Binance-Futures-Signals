@@ -59,13 +59,13 @@ async function msgColorBlue(message) { console.log((await chalk()).bgWhite.blue(
   checkHedgeMode();
   //await client.sendMessage('me', { message: `Waiting for telegram notification to buy...`, schedule: (15 * 1) + (Date.now() / 1000) });
 
-  /*
+  // Check Order Limit Open Expired Time
   setInterval(function () {
     checkOrders();
     console.log(`🔎 O bot irá cancelar as ordens sem posição com mais de ${minutes} minuto(s) aberta(s)!`)
     msgColorBlue('Waiting for telegram notification to buy...')
   }, 30000)
-  */
+
 })();
 
 
@@ -238,15 +238,6 @@ async function openOrder(symbol, position, entryPoint, stopLoss, takeProfit) {
   }
 
 }
-
-
-// Check Order Limit Open Expired Time
-setInterval(function () {
-  checkOrders();
-  console.log(`🔎 O bot irá cancelar as ordens sem posição com mais de ${minutes} minuto(s) aberta(s)!`)
-  msgColorBlue('Waiting for telegram notification to buy...')
-}, 30000)
-
 
 // Check Open Orders
 const checkOrders = async () => {
