@@ -123,8 +123,12 @@ async function onNewMessageBinanceFutures(message) {
 
       const execOrder = await openOrder(coin, position, entryPoint, stopLoss, takeProfit)
       const { buySymbol, targetProfitSymbol, stopMarket, trailingStop } = execOrder
+      const hasCode = Object.prototype.hasOwnProperty.call(buySymbol, 'code')
 
-      console.log(`
+      if (hasCode) {
+        console.log(`Código: ${buySymbol.code}\nMensagem: ${buySymbol.msg}`)
+      } else {
+        console.log(`
 *Symbol*: ${buySymbol.symbol}
 *entryPoint*: ${buySymbol.price}
 *targetProfit*: ${targetProfitSymbol.stopPrice}
@@ -134,6 +138,7 @@ async function onNewMessageBinanceFutures(message) {
 *trailingStopPrice: ${trailingStop.activatePrice}
 *trailingStopRate: ${trailingStop.priceRate}
 `)
+      }
     } else {
       console.log(`Waiting for signals from the Group ${binanceFuturesChannel}!`)
     }
