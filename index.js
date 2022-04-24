@@ -236,6 +236,7 @@ async function openOrder(symbol, position, entryPoint, stopLoss, takeProfit) {
 setInterval(function () {
   checkOrders();
   console.log(`🔎 O bot irá cancelar as ordens sem posição com mais de ${minutes} minuto(s) aberta(s)!`)
+  msgColorBlue('Waiting for telegram notification to buy...')
 }, 5000)
 
 
