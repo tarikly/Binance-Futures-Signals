@@ -186,7 +186,7 @@ async function openOrder(symbol, position, entryPoint, stopLoss, takeProfit) {
         workingType: 'MARK_PRICE',
         callbackRate: 3,
         reduceOnly: 'true',
-        stopPrice: parseFloat(takeProfit)
+        activationPrice: parseFloat(takeProfit)
       }
     );
 
@@ -219,7 +219,7 @@ async function openOrder(symbol, position, entryPoint, stopLoss, takeProfit) {
         workingType: 'MARK_PRICE',
         callbackRate: 3,
         reduceOnly: 'true',
-        stopPrice: parseFloat(takeProfit)
+        activationPrice: parseFloat(takeProfit)
       }
     );
 
