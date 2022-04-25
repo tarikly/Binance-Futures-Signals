@@ -2,10 +2,10 @@ const { Api, TelegramClient } = require("telegram");
 const { StringSession } = require("telegram/sessions");
 const { NewMessage } = require('telegram/events');
 require('dotenv').config();
-const apiId = parseInt(process.env.TELEGRAM_API_ID);
-const apiHash = process.env.TELEGRAM_API_HASH;
-const binanceFuturesChannel = parseInt(process.env.BINANCE_FUTURES_CHANNEL);
-const stringSession = new StringSession(process.env.STRING_SESSION);
+const apiId = parseInt(process.env.TELEGRAM_API_ID.trim());
+const apiHash = process.env.TELEGRAM_API_HASH.trim();
+const binanceFuturesChannel = parseInt(process.env.BINANCE_FUTURES_CHANNEL.trim());
+const stringSession = new StringSession(process.env.STRING_SESSION.trim());
 const input = require("input");
 const Binance = require("node-binance-api")
 const cron = require('node-cron');
@@ -15,18 +15,18 @@ async function chalk() {
 
 // Binance
 const binance = new Binance().options({
-  APIKEY: process.env.BINANCE_API_KEY,
-  APISECRET: process.env.BINANCE_SECRET_KEY,
+  APIKEY: process.env.BINANCE_API_KEY.trim(),
+  APISECRET: process.env.BINANCE_SECRET_KEY.trim(),
   useServerTime: true,
   recvWindow: 60000,
   hedgeMode: false // mode one-way default
 })
 
 // Leverage and percent
-let leverage = parseInt(process.env.LEVERAGE)
-const percent = process.env.PERCENT_SIZE_AMOUNT
-const targetProfit = parseInt(process.env.TARGET_PROFIT)
-const minutes = parseInt(process.env.MINUTES_CLOSE_ORDERS)
+let leverage = parseInt(process.env.LEVERAGE.trim())
+const percent = process.env.PERCENT_SIZE_AMOUNT.trim()
+const targetProfit = parseInt(process.env.TARGET_PROFIT.trim())
+const minutes = parseInt(process.env.MINUTES_CLOSE_ORDERS.trim())
 const version = process.env.VERSION;
 let client;
 
