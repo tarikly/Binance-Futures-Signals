@@ -193,16 +193,27 @@ async function openOrder(symbol, position, entryPoint, stopLoss, takeProfit) {
   if (position === 'LONG') {
     const qty = parseFloat(Math.round((balanceUSDT * percent * leverage) / markPrice)).toFixed(precisionQty)
     const priceSell = parseFloat(markPrice * 1.10).toFixed(2)
+    const priceStopLimit = parseFloat(entryPoint * 1.006).toFixed(2)
 
     msgColorBlue(`Saldo USDT: ${balanceUSDT}`)
     msgColorBlue(`Qtd.: ${qty} // Saldo USDT * percentual por ordem * alavancagem`)
 
     if (qty === 0) return
 
-    // buy
+    /* buy LIMIT
     const buySymbol = await binance.futuresOrder('BUY', symbol, qty, false, {
       type: 'LIMIT', timeInForce: 'GTC', price: parseFloat(entryPoint)
     })
+    */
+
+    // buy STOP LIMIT
+    const buySymbol = await binance.futuresBuy(symbol, qty, parseFloat(priceStopLimit), {
+      timeInForce: 'GTC',
+      stopPrice: parseFloat(entryPoint),
+      side: 'BUY',
+      type: 'STOP'
+    })
+
     //const buySymbol = await binance.futuresMarketBuy(symbol, qty)
     const targetProfitSymbol = await binance.futuresOrder("SELL", symbol, qty, false, {
       type: 'TAKE_PROFIT_MARKET', workingType: 'MARK_PRICE', closePosition: true, stopPrice: parseFloat(takeProfit), timeInForce: 'GTC'
@@ -230,12 +241,22 @@ async function openOrder(symbol, position, entryPoint, stopLoss, takeProfit) {
   } else {
     const qty = parseFloat(Math.round((balanceUSDT * percent * leverage) / markPrice)).toFixed(precisionQty)
     const priceSell = parseFloat(markPrice * 0.90).toFixed(2)
+    const priceStopLimit = parseFloat(entryPoint * (1 - 0.006)).toFixed(3)
 
-
-    // buy
+    /* buy LIMIT
     const buySymbol = await binance.futuresOrder('SELL', symbol, qty, false, {
       type: 'LIMIT', timeInForce: 'GTC', price: parseFloat(entryPoint)
     })
+    */
+
+    // sell STOP LIMIT
+    const buySymbol = await binance.futuresSell(symbol, qty, parseFloat(priceStopLimit), {
+      timeInForce: 'GTC',
+      stopPrice: parseFloat(entryPoint),
+      side: 'SELL',
+      type: 'STOP'
+    })
+
     //const buySymbol = await binance.futuresMarketBuy(symbol, qty)
     const targetProfitSymbol = await binance.futuresOrder("BUY", symbol, qty, false, {
       type: 'TAKE_PROFIT_MARKET', workingType: 'MARK_PRICE', closePosition: true, stopPrice: parseFloat(takeProfit), timeInForce: 'GTC'
