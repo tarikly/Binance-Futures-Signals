@@ -193,7 +193,7 @@ async function openOrder(symbol, position, entryPoint, stopLoss, takeProfit) {
   if (position === 'LONG') {
     const qty = parseFloat(Math.round((balanceUSDT * percent * leverage) / markPrice)).toFixed(precisionQty)
     const priceSell = parseFloat(markPrice * 1.10).toFixed(2)
-    const priceStopLimit = parseFloat(entryPoint * 1.006).toFixed(2)
+    const priceStopLimit = parseFloat(entryPoint * 1.006).toFixed(4)
 
     msgColorBlue(`Saldo USDT: ${balanceUSDT}`)
     msgColorBlue(`Qtd.: ${qty} // Saldo USDT * percentual por ordem * alavancagem`)
@@ -241,7 +241,7 @@ async function openOrder(symbol, position, entryPoint, stopLoss, takeProfit) {
   } else {
     const qty = parseFloat(Math.round((balanceUSDT * percent * leverage) / markPrice)).toFixed(precisionQty)
     const priceSell = parseFloat(markPrice * 0.90).toFixed(2)
-    const priceStopLimit = parseFloat(entryPoint * (1 - 0.006)).toFixed(3)
+    const priceStopLimit = parseFloat(entryPoint * (1 - 0.006)).toFixed(4)
 
     /* buy LIMIT
     const buySymbol = await binance.futuresOrder('SELL', symbol, qty, false, {
