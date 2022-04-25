@@ -20,7 +20,7 @@ const binance = new Binance().options({
   APISECRET: process.env.BINANCE_SECRET_KEY.trim(),
   useServerTime: true,
   recvWindow: 60000,
-  test: test ? true : false,
+  test: test === 'true' ? true : false,
   hedgeMode: false // mode one-way default
 })
 
@@ -58,7 +58,7 @@ async function msgColorBlue(message) { console.log((await chalk()).bgWhite.blue(
   //console.log((await chalk()).yellow(">>>", "Waiting for telegram notification to buy..."));
   msgColorBlue('Waiting for telegram notification to buy...')
 
-  if (test) msgColorBlue('MODO DE TESTE BINANCE TESTNET!')
+  if (test === 'true') msgColorBlue('MODO DE TESTE BINANCE TESTNET!')
 
   checkHedgeMode();
   //await client.sendMessage('me', { message: `Waiting for telegram notification to buy...`, schedule: (15 * 1) + (Date.now() / 1000) });
