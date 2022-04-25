@@ -92,7 +92,7 @@ async function onNewMessageBinanceFutures(message) {
 
         item.replace(',', '.')
         if (/MOEDA\:/.test(item)) {
-          coin = itemSearch(item).replace(/[^a-z]/gi, '')
+          coin = itemSearch(item).replace(/[^a-z0-9]/gi, '')
         }
 
         if (/ENTRADA\:/.test(item)) {
