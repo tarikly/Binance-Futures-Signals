@@ -69,6 +69,11 @@
       "required": true,
       "value": "30"
     },
+    "BINANCE_TEST": {
+      "description": "API TEST BINANCE",
+      "required": true,
+      "value": "false"
+    },
     "VERSION": {
       "description": "Version bot",
       "required": true,

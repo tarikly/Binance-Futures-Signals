@@ -36,6 +36,9 @@ spec:
     - key: MINUTES_CLOSE_ORDERS
       scope: RUN_AND_BUILD_TIME
       value: "30"
+    - key: BINANCE_TEST
+      scope: RUN_AND_BUILD_TIME
+      value: "false"
     - key: VERSION
       scope: RUN_AND_BUILD_TIME
       value: "2"

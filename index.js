@@ -6,6 +6,7 @@ const apiId = parseInt(process.env.TELEGRAM_API_ID.trim());
 const apiHash = process.env.TELEGRAM_API_HASH.trim();
 const binanceFuturesChannel = parseInt(process.env.BINANCE_FUTURES_CHANNEL.trim());
 const stringSession = new StringSession(process.env.STRING_SESSION.trim());
+const test = process.env.BINANCE_TEST
 const input = require("input");
 const Binance = require("node-binance-api")
 const cron = require('node-cron');
@@ -19,6 +20,7 @@ const binance = new Binance().options({
   APISECRET: process.env.BINANCE_SECRET_KEY.trim(),
   useServerTime: true,
   recvWindow: 60000,
+  test: test ? true : false,
   hedgeMode: false // mode one-way default
 })
 
@@ -55,6 +57,8 @@ async function msgColorBlue(message) { console.log((await chalk()).bgWhite.blue(
   //console.log('\n', chalk.yellow(">>> Waiting for telegram notification to buy..."));
   //console.log((await chalk()).yellow(">>>", "Waiting for telegram notification to buy..."));
   msgColorBlue('Waiting for telegram notification to buy...')
+
+  if (test) msgColorBlue('MODO DE TESTE BINANCE TESTNET!')
 
   checkHedgeMode();
   //await client.sendMessage('me', { message: `Waiting for telegram notification to buy...`, schedule: (15 * 1) + (Date.now() / 1000) });
