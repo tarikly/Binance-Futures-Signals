@@ -123,10 +123,20 @@ async function onNewMessageBinanceFutures(message) {
 
       const execOrder = await openOrder(coin, position, entryPoint, stopLoss, takeProfit)
       const { buySymbol, targetProfitSymbol, stopMarket, trailingStop } = execOrder
-      const hasCode = Object.prototype.hasOwnProperty.call(buySymbol, 'code')
+      const hasCodeBuy = Object.prototype.hasOwnProperty.call(buySymbol, 'code')
+      const hasCodeTarget = Object.prototype.hasOwnProperty.call(targetProfitSymbol, 'code')
+      const hasCodeStop = Object.prototype.hasOwnProperty.call(stopMarket, 'code')
+      const hasCodeTrailing = Object.prototype.hasOwnProperty.call(trailingStop, 'code')
 
-      if (hasCode) {
-        console.log(`Código: ${buySymbol.code}\nMensagem: ${buySymbol.msg}`)
+      if (hasCodeBuy) {
+        msgColorBlue(`Ordem Limit > Código: ${buySymbol.code}\nMensagem: ${buySymbol.msg}`)
+        msgColorBlue('Considere depositar mais dólares ou aumentar a alavancagem (leverage)')
+      } else if (hasCodeTarget) {
+        msgColorBlue(`Ordem Take Profit > Código: ${targetProfitSymbol.code}\nMensagem: ${targetProfitSymbol.msg}`)
+      } else if (hasCodeStop) {
+        msgColorBlue(`Ordem Stop > Código: ${stopMarket.code}\nMensagem: ${stopMarket.msg}`)
+      } else if (hasCodeTrailing) {
+        msgColorBlue(`Ordem Trailing > Código: ${trailingStop.code}\nMensagem: ${trailingStop.msg}`)
       } else {
         console.log(`
 *Symbol*: ${buySymbol.symbol}
@@ -179,6 +189,11 @@ async function openOrder(symbol, position, entryPoint, stopLoss, takeProfit) {
   if (position === 'LONG') {
     const qty = parseFloat(Math.round((balanceUSDT * percent * leverage) / markPrice)).toFixed(precisionQty)
     const priceSell = parseFloat(markPrice * 1.10).toFixed(2)
+
+    msgColorBlue(`Saldo USDT: ${balanceUSDT}`)
+    msgColorBlue(`Qtd.: ${qty} // Saldo USDT * percentual por ordem * alavancagem`)
+
+    if (qty === 0) return
 
     // buy
     const buySymbol = await binance.futuresOrder('BUY', symbol, qty, false, {
