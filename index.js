@@ -100,7 +100,7 @@ async function onNewMessageBinanceFutures(message) {
         }
 
         if (/ALAVANCAGEM\:/.test(item)) {
-          leverage = itemSearch(item).replace(/[^0-9]/gi, '')
+          //leverage = itemSearch(item).replace(/[^0-9]/gi, '')
         }
 
         if (/STOP LOSS\:/.test(item)) {
