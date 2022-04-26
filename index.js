@@ -228,7 +228,7 @@ async function openOrder(symbol, position, entryPoint, stopLoss, takeProfit) {
     const targetProfitSymbol = null
 
     const stopMarket = await binance.futuresOrder("SELL", symbol, qty, false, {
-      type: 'STOP_MARKET', workingType: 'CONTRACT_PRICE', closePosition: true, stopPrice: parseFloat(stopLoss), timeInForce: 'GTC'
+      type: 'STOP_MARKET', workingType: 'MARK_PRICE', closePosition: true, stopPrice: parseFloat(stopLoss), timeInForce: 'GTC'
     });
 
     const trailingStop = await binance.futuresOrder("SELL", symbol, qty, false,
@@ -274,7 +274,7 @@ async function openOrder(symbol, position, entryPoint, stopLoss, takeProfit) {
     const targetProfitSymbol = null
 
     const stopMarket = await binance.futuresOrder("BUY", symbol, qty, false, {
-      type: 'STOP_MARKET', workingType: 'CONTRACT_PRICE', closePosition: true, stopPrice: parseFloat(stopLoss), timeInForce: 'GTC'
+      type: 'STOP_MARKET', workingType: 'MARK_PRICE', closePosition: true, stopPrice: parseFloat(stopLoss), timeInForce: 'GTC'
     });
 
     const trailingStop = await binance.futuresOrder("BUY", symbol, qty, false,
