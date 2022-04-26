@@ -145,7 +145,7 @@ async function onNewMessageBinanceFutures(message) {
         console.log(`
 *Symbol*: ${buySymbol.symbol}
 *entryPoint*: ${buySymbol.price}
-*targetProfit*: ${targetProfitSymbol.stopPrice}
+*targetProfit*: ${takeProfit}
 *stopLoss*: ${stopMarket.stopPrice}
 *Qty*: ${buySymbol.origQty}
 *positionSide*: ${buySymbol.positionSide}
@@ -190,7 +190,7 @@ async function openOrder(symbol, position, entryPoint, stopLoss, takeProfit) {
     }
   }
 
-  const decimals = entryPoint.toString().length - entryPoint.toString().indexOf(".")-1
+  const decimals = entryPoint.toString().length - entryPoint.toString().indexOf(".") - 1
 
   if (position === 'LONG') {
     const qty = parseFloat(Math.round((balanceUSDT * percent * leverage) / markPrice)).toFixed(precisionQty)
@@ -221,6 +221,8 @@ async function openOrder(symbol, position, entryPoint, stopLoss, takeProfit) {
       type: 'TAKE_PROFIT_MARKET', workingType: 'MARK_PRICE', closePosition: true, stopPrice: parseFloat(takeProfit), timeInForce: 'GTC'
     });
     */
+
+    const targetProfitSymbol = null
 
     const stopMarket = await binance.futuresOrder("SELL", symbol, qty, false, {
       type: 'STOP_MARKET', workingType: 'CONTRACT_PRICE', closePosition: true, stopPrice: parseFloat(stopLoss), timeInForce: 'GTC'
@@ -265,6 +267,8 @@ async function openOrder(symbol, position, entryPoint, stopLoss, takeProfit) {
       type: 'TAKE_PROFIT_MARKET', workingType: 'MARK_PRICE', closePosition: true, stopPrice: parseFloat(takeProfit), timeInForce: 'GTC'
     });
     */
+
+    const targetProfitSymbol = null
 
     const stopMarket = await binance.futuresOrder("BUY", symbol, qty, false, {
       type: 'STOP_MARKET', workingType: 'CONTRACT_PRICE', closePosition: true, stopPrice: parseFloat(stopLoss), timeInForce: 'GTC'
