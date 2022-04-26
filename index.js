@@ -166,6 +166,7 @@ async function openOrder(symbol, position, entryPoint, stopLoss, takeProfit) {
   const symbols = futures['symbols']
   let precisionQty
   let precisionPrice
+  let decimals
 
   for (let item in symbols) {
     if (symbols[item].symbol === symbol)
@@ -190,7 +191,9 @@ async function openOrder(symbol, position, entryPoint, stopLoss, takeProfit) {
     }
   }
 
-  const decimals = entryPoint.toString().length - entryPoint.toString().indexOf(".") - 1
+  if (entryPoint) {
+    decimals = entryPoint.toString().length - entryPoint.toString().indexOf(".") - 1
+  }
 
   if (position === 'LONG') {
     const qty = parseFloat(Math.round((balanceUSDT * percent * leverage) / markPrice)).toFixed(precisionQty)
