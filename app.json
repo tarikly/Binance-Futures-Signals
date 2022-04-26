@@ -70,7 +70,7 @@
       "value": "30"
     },
     "BINANCE_TEST": {
-      "description": "API TEST BINANCE",
+      "description": "API Test Binance. Default: false.",
       "required": true,
       "value": "false"
     },
