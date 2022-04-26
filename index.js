@@ -128,7 +128,7 @@ async function onNewMessageBinanceFutures(message) {
       const execOrder = await openOrder(coin, position, entryPoint, stopLoss, takeProfit)
       const { buySymbol, targetProfitSymbol, stopMarket, trailingStop } = execOrder
       const hasCodeBuy = Object.prototype.hasOwnProperty.call(buySymbol, 'code')
-      const hasCodeTarget = Object.prototype.hasOwnProperty.call(targetProfitSymbol, 'code')
+      const hasCodeTarget = false //Object.prototype.hasOwnProperty.call(targetProfitSymbol, 'code')
       const hasCodeStop = Object.prototype.hasOwnProperty.call(stopMarket, 'code')
       const hasCodeTrailing = Object.prototype.hasOwnProperty.call(trailingStop, 'code')
 
